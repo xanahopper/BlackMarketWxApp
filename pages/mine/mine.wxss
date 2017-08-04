@@ -1,0 +1,23 @@
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+
+.textStyle {
+  display: flex;
+  flex-direction: column;
+  align-items: bottom;
+}
+
+.textContainer {
+  margin-top: 200px;
+}
+
+.page__bd {
+  padding-top: 20px;
+}

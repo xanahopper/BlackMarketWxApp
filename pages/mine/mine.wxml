@@ -1,0 +1,36 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-panel">
+      <view class="weui-panel__bd">
+        <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+              <image class="weui-media-box__thumb" src="{{userInfo.avatarUrl}}" />
+          </view>
+          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+              <view class="weui-media-box__title">{{ userInfo.nickName }}</view>
+              <!--<view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>-->
+          </view>
+        </navigator>
+      </view> <!-- weui-panel__bd -->
+    </view> <!-- weui-panel -->
+    <view class="weui-cells__title">绑定信息</view> <!-- weui- -->
+    <view class="weui-cells weui-cells_after-title">
+      <navigator url="" class="weui-cell weui-cell__access">
+        <view class="weui-cell__bd">手机</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{ bindInfo.phoneNum }}</view>
+      </navigator>
+    </view> <!-- weui-cells -->
+    <view class="weui-cells__title">验证信息</view> <!-- weui- -->
+    <view class="weui-cells weui-cells_after-title">
+      <navigator url="" class="weui-cell weui-cell__access">
+        <view class="weui-cell__bd">学生凭证</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">无</view>
+      </navigator>
+    </view> <!-- weui-cells -->
+    <view class="weui-cells__tips">没有验证可能会有部分功能限制</view>
+
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="warn">注销</button>
+    </view>
+  </view>
+</view>

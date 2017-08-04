@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/auth/auth",
+    "pages/mine/mine"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Black Market",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "backgroundColor": "#fff",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "iconPath": "images/homepage.png",
+      "selectedIconPath": "images/homepage_fill.png"
+    }, {
+      "pagePath": "pages/mine/mine",
+      "text": "我",
+      "iconPath": "images/mine.png",
+      "selectedIconPath": "images/mine_fill.png"
+    }]
+  }
+}

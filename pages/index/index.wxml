@@ -1,0 +1,96 @@
+<!-- index.wxml -->
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-search-bar">
+            <view class="weui-search-bar__form">
+                <view class="weui-search-bar__box">
+                    <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                    <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}"
+                           focus="{{inputShowed}}" bindinput="inputTyping"  />
+                    <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                        <icon type="clear" size="14"></icon>
+                    </view>
+                </view>
+                <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                    <icon class="weui-icon-search" type="search" size="14"></icon>
+                    <view class="weui-search-bar__text">搜索</view>
+                </label>
+            </view>
+            <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+        </view>
+        <view class="timeline" wx:if="{{!inputShowed}}">
+            <view class="weui-form-preview" wx:for="{{posts}}" wx:key="id">
+                <view class="weui-form-preview__hd">
+                    <view class="weui-form-preview__item" wx:if="{{item.supply}}">
+                        <view class="weui-form-preview__label">供</view>
+                        <view class="weui-form-preview__value_in-hd supply-style">{{ item.supply }}</view>
+                    </view>
+                    <view class="weui-form-preview__item" wx:if="{{item.demand}}">
+                        <view class="weui-form-preview__label">求</view>
+                        <view class="weui-form-preview__value_in-hd demand-style">{{ item.demand }}</view>
+                    </view>
+                </view>
+                <view class="weui-form-preview__bd">
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">年级</view>
+                        <view class="weui-form-preview__value">{{ item.grade }}</view>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">发布日期</view>
+                        <view class="weui-form-preview__value">{{ item.time }}</view>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">状态</view>
+                        <view class="weui-form-preview__value">
+                            <block wx:if="{{item.state == 0}}">交易中</block>
+                            <block wx:elif="{{item.state == 1}}">交易完成</block>
+                            <block wx:elif="{{item.state == 2}}">交易关闭</block>
+                            <block wx:else>未知</block>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-form-preview__ft">
+                    <navigator url="" class="weui-form-preview__btn weui-form-preview__btn_primary"
+                               hover-class="weui-form-preview__btn_active">查看</navigator>
+                </view>
+            </view>
+        </view>
+        <view class="search-hint" wx:if="{{inputShowed && inputVal.length == 0}}">
+            <text>搜索结果</text>
+        </view>
+        <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+        </view>
+        <block wx:if="{{!inputShowed}}">
+            <view class="weui-loadmore"  wx:if="{{hasMore && posts.length >0}}">
+                <view class="weui-loading"></view>
+                <view class="weui-loadmore__tips">正在加载</view>
+            </view>
+            <view class="weui-loadmore weui-loadmore_line" wx:if="{{posts.length == 0}}">
+                <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+            </view>
+            <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot" wx:if="{{!hasMore && posts.length > 0}}">
+                <view class="weui-loadmore__tips weui-loadmore__tips_in-line weui-loadmore__tips_in-dot"></view>
+            </view>
+        </block>
+    </view>
+</view>
