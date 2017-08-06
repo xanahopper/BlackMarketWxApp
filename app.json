@@ -3,7 +3,9 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/auth/auth",
-    "pages/mine/mine"
+    "pages/mine/mine",
+    "pages/no_auth/no_auth",
+    "pages/splash/splash"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -13,6 +15,7 @@
   },
   "tabBar": {
     "backgroundColor": "#fff",
+    "selectedColor": "black",
     "list": [{
       "pagePath": "pages/index/index",
       "text": "首页",

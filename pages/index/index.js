@@ -4,48 +4,49 @@ var app = getApp()
 Page({
   data: {
     userInfo: {},
+    filterShowed: false,
+    sortShowed: false,
+    sortState: 0,
     inputShowed: false,
     inputVal: "",
     hasMore: true,
     posts: [{
-      id: 1,
-      supply: '金融经济学',
-      demand: '环境经济学',
-      grade: '经双2015级',
-      time: '2017-08-03 22:41:32',
-      state: 1
-    }, {
-      id: 2,
-      supply: null,
-      demand: '环境经济学',
-      grade: '经双2014级',
-      time: '2017-08-03 22:41:32',
+      postId: 1,
+      supply: '奇葩学',
+      time: '2017-08-06',
       state: 0
     }, {
-      id: 3,
-      supply: '金融经济学',
-      demand: '环境经济学',
-      grade: '经双2015级',
-      time: '2017-08-03 22:41:32',
-      state: 2
+      postId: 1,
+      supply: '奇葩学',
+      time: '2017-08-06',
+      state: 0
     }, {
-      id: 4,
-      supply: '金融经济学',
-      demand: null,
-      grade: '经双2014级',
-      time: '2017-08-02 12:41:32',
+      postId: 1,
+      supply: '奇葩学',
+      time: '2017-08-06',
+      state: 0
+    }, {
+      postId: 1,
+      supply: '奇葩学',
+      time: '2017-08-06',
+      state: 0
+    }, {
+      postId: 1,
+      supply: '奇葩学',
+      time: '2017-08-06',
       state: 0
     }]
   },
   onLoad: function () {
     console.log('onLoad')
     var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function(userInfo){
-      //更新数据
-      that.setData({
-        userInfo:userInfo
-      })
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    app.checkLogin()
+    .then(data => {
+      wx.hideLoading()
     })
   },
   showInput: function () {
@@ -68,5 +69,45 @@ Page({
       this.setData({
           inputVal: e.detail.value
       });
+  },
+  toggleSort(e) {
+    let that = this
+    this.setData({
+      sortShowed: !that.data.sortShowed
+    })
+  },
+  hideSort() {
+    this.setData({
+      sortShowed: false
+    })
+  },
+  cancelMask() {
+    this.hideSort()
+  },
+  setSortState(e) {
+    if (e.currentTarget.dataset.state) {
+      this.setData({
+        sortState: Number.parseInt(e.currentTarget.dataset.state)
+      })
+    }
+    this.cancelMask()
+  },
+  toggleTimeSort(e) {
+    var state = 0
+    switch(this.data.sortState) {
+      case 0:
+      case 1:
+      case 2:
+      case 4:
+        state = 3
+        break
+      case 3:
+        state = 4
+        break
+    }
+    this.setData({
+      sortState: state
+    })
+    this.cancelMask()
   }
 })

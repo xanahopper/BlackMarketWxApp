@@ -30,7 +30,7 @@
     <view class="weui-cells__tips">没有验证可能会有部分功能限制</view>
 
     <view class="weui-btn-area">
-      <button class="weui-btn" type="warn">注销</button>
+      <button class="weui-btn" type="warn" bindtap="logout">注销</button>
     </view>
   </view>
 </view>
