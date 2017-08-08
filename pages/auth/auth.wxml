@@ -4,14 +4,41 @@
         <view class="icon-box">
             <icon type="info" size="88"></icon>
             <view class="icon-box__ctn">
-                <view class="icon-box__title">请绑定手机</view>
-                <view class="icon-box__desc">Black Market 需要绑定手机后才能使用</view>
+                <view class="icon-box__title">请确认个人信息</view>
+                <view class="icon-box__desc">Black Market 需要确认以下信息后才能使用</view>
             </view>
         </view>
     </view>
     <view class="page__bd">
         <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">信息不完整</view>
-        <view class="weui-cells__title">表单</view>
+
+        <view class="weui-cells__title">学生信息</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">年级</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="bindGradeChange" value="{{gradeIndex}}" range="{{grades}}">
+                        <view class="weui-select weui-select_in-select-after">{{grades[gradeIndex]}}</view>
+                    </picker>
+                </view>
+            </view>
+
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">类型</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
+                        <view class="weui-select weui-select_in-select-after">{{types[typeIndex]}}</view>
+                    </picker>
+                </view>
+            </view>
+        </view>
+        <view class="weui-cells__tips">学生信息确认后将不可改变</view>
+
+        <view class="weui-cells__title">手机信息</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">

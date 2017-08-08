@@ -1,8 +1,23 @@
 //app.js
 import Promise from './utils/bluebird';
-import { SessionExpiredError, LoginError, SessionError, UserInfoError, BindInfoError } from './utils/exception';
+import { SessionExpiredError, LoginError, SessionError, UserInfoError, BindInfoError, ServerError, EmptyLocalBindError, ErrorTypes } from './utils/exception';
 
 App({
+  globalData: {
+    userInfo: null,
+    bindInfo: null,
+    session: null,
+  },
+
+  constants: {
+    requestUrl: "https://pkublackmarket.cn/api/v1/wechat/"
+  },
+
+  urls: {
+    code2sessionUrl: "https://pkublackmarket.cn/api/v1/wechat/jscode2session",
+    checkSessionUrl: "https://pkublackmarket.cn/api/v1/wechat/check_session",
+  },
+
   onLaunch: function () {
     //调用API从本地缓存中获取数据
     // this.checkLogin()
@@ -26,6 +41,15 @@ App({
         })
       }
     })
+      .then(userInfo => {
+        return new Promise((resolve, reject) => {
+          console.log('//TODO: 此处将userInfo上传')
+          resolve(userInfo)
+        })
+      })
+      .catch(err => {
+        return Promise.reject(err)
+      })
   },
 
   getUserBindInfo: function (forceReload) {
@@ -56,15 +80,18 @@ App({
   },
 
   setUserBindInfo: function (info) {
+    console.log('//TODO: 更新服务器端绑定信息BindInfo')
     let that = this
     this.globalData.bindInfo = info
     wx.setStorageSync('bindInfo', info)
   },
 
   login() {
+    let that = this
     return new Promise((resolve, reject) => {
       wx.login({
         success(data) {
+          console.log(data)
           resolve(data)
         },
         fail() {
@@ -73,10 +100,36 @@ App({
       })
     })
       .then(res => {
-        console.log('send code to back and get session')
+        console.log('// TODO: 将Code发送至后端并换取session')
         //获取到session
-        wx.setStorageSync('session', 'session_demo')
-        return Promise.resolve('session_demo')
+        return new Promise((resolve, reject) => {
+          console.log('Code换取Session')
+          wx.request({
+            url: that.urls.code2sessionUrl,
+            data: {
+              code: res.code
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            success(session) {
+              console.log(session)
+              if (session.statusCode == 200 && session.data.session_key) {
+                wx.setStorageSync('session', session.data.session_key)
+                resolve(session)
+              } else {
+                reject(new ServerError('换取Session时出错, Code:' + session.statusCode))
+              }
+            },
+            fail(err) {
+              reject(new ServerError('Code换取Session时出现错误' + err))
+            }
+          })
+        })
+      })
+      .then(session => {
+        that.getUserInfo().then(() => null)
+        return Promise.resolve(session)
       })
       .catch(err => {
         console.log('login failed')
@@ -95,7 +148,11 @@ App({
       wx.getStorage({
         key: 'session',
         success(session) {
-          resolve(session)
+          if (session.data.length > 0 && session.data.length < 100) {
+            resolve(session.data)
+          } else {
+            reject(new SessionError('invalid local session'))
+          }
         },
         fail() {
           reject(new SessionError('local session empty.'))
@@ -103,9 +160,27 @@ App({
       })
     })
       .then(session => {
-        return Promise.resolve(session)
+        return new Promise((resolve, reject) => {
+          wx.request({
+            url: that.urls.checkSessionUrl,
+            data: {
+              session_key: session
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            success(res) {
+              that.globalData.session = session
+              resolve(session)
+            },
+            fail() {
+              reject(new SessionError('第三方Session验证失败'))
+            }
+          })
+        })
       })
       .catch(err => {
+        console.error(err)
         return that.login()
       })
   },
@@ -158,9 +233,9 @@ App({
           console.log('use local data')
           return Promise.resolve(that.globalData)
         } else {
-          console.log('fetch new data')
+          console.log('// TODO: use session to fetch new data')
           return Promise.resolve({
-            session: 'session_demo',
+            session: session,
             userInfo: null,
             bindInfo: null
           })
@@ -173,6 +248,7 @@ App({
 
         // User Info
         infoOp.push(new Promise((resolve, reject) => {
+          console.log('// TODO: 比较新旧UserInfo，并更新服务器端UserInfo')
           if (!res.userInfo) {
             that.getUserInfo().then(info => {
               res.userInfo = info
@@ -210,28 +286,26 @@ App({
         return Promise.resolve(that.globalData)
       })
       .catch(err => {
-        console.error(JSON.stringify(err))
+        console.error(JSON.stringify(err), err)
         if (err.type) {
-          if (err.type == 5) {
-            wx.redirectTo({
-              url: '/pages/auth/auth'
-            })
-          } else if (err.type == 2 || err.type == 4) {
-            wx.redirectTo({
-              url: '/pages/no_auth/no_auth'
-            })
+          switch (err.type) {
+            case 2:
+            case 4:
+              wx.redirectTo({
+                url: '/pages/no_auth/no_auth'
+              })
+              break
+            case 5:
+              wx.redirectTo({
+                url: '/pages/auth/auth'
+              })
+              break
+            case 6:
+              wx.redirectTo({
+                url: '/pages/error/error'
+              })
           }
         }
       })
-  },
-
-  globalData: {
-    userInfo: null,
-    bindInfo: null,
-    session: null,
-  },
-
-  constants: {
-    requestUrl: "http://xanablackmarket.duapp.com/"
   }
 })

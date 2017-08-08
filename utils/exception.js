@@ -1,3 +1,14 @@
+let ErrorTypes = {
+    SessionExpired: 1,
+    Login: 2,
+    Session: 3,
+    UserInfo: 4,
+    BindInfo: 5,
+    Server: 6,
+    Network: 7,
+    EmptyLocalBind: 8
+}
+
 class SessionExpiredError extends Error {
     constructor(msg) {
         super(msg)
@@ -38,10 +49,36 @@ class BindInfoError extends Error {
     }
 }
 
+class ServerError extends Error {
+    constructor(msg) {
+        super(msg)
+        this.type = 6
+    }
+}
+
+class NetworkError extends Error {
+    constructor(msg) {
+        super(msg)
+        this.type = 7
+    }
+}
+
+class EmptyLocalBindError extends Error {
+    constructor(msg, session) {
+        super(msg)
+        this.type = 8,
+        this.session = session
+    }
+}
+
 module.exports = {
-    SessionExpiredError: SessionExpiredError,
+    SessionExpiredError,
     LoginError,
     SessionError,
     UserInfoError,
-    BindInfoError: BindInfoError
+    BindInfoError,
+    ServerError,
+    NetworkError,
+    EmptyLocalBindError,
+    ErrorTypes
 }

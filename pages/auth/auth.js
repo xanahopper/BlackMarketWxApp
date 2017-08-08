@@ -9,7 +9,13 @@ Page({
     phoneNum: null,
     verifyCode: null,
     isAgree: false,
-    showTopTips: false
+    showTopTips: false,
+    
+    gradeIndex: 0,
+    grades: ['2014', '2015', '2016', '2017'],
+
+    typeIndex: 0,
+    types: ['双学位', '元培PPE', '其他'],
   },
 
   /**
@@ -130,5 +136,17 @@ Page({
 
   requestVerifyCode: function() {
 
+  },
+
+  bindGradeChange(e) {
+    this.setData({
+      gradeIndex: e.detail.value
+    })
+  },
+
+  bindTypeChange(e) {
+    this.setData({
+      typeIndex: e.detail.value
+    })
   }
 })

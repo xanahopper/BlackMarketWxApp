@@ -5,7 +5,8 @@
     "pages/auth/auth",
     "pages/mine/mine",
     "pages/no_auth/no_auth",
-    "pages/splash/splash"
+    "pages/splash/splash",
+    "pages/error/error"
   ],
   "window": {
     "backgroundTextStyle": "light",
