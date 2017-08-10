@@ -1,5 +1,5 @@
 <view class="container">
   <view class="textContainer">
-    <text class="textStyle">{{text}}</text>
+    <text class="textStyle">缺一个Splash界面，回头再说</text>
   </view>
 </view>

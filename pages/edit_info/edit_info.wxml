@@ -1,0 +1,44 @@
+<!-- edit_info.wxml -->
+<view class="page">
+  <view class="page__bd">
+
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
+    <view class="weui-cells__title">学生信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">年级</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindGradeChange" value="{{gradeIndex}}" range="{{grades}}">
+            <view class="weui-select weui-select_in-select-after">{{grades[gradeIndex]}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">类型</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
+            <view class="weui-select weui-select_in-select-after">{{types[typeIndex]}}</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+
+
+      <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" bindtap="submitInfo">确定</button>
+      </view>
+  </view>
+  <view class="page__ft">
+    <view class="weui-footer weui-footer_fixed-bottom">
+      <view class="weui-footer__links">
+        <navigator url="" class="weui-footer__link">黑市</navigator>
+      </view>
+      <view class="weui-footer__text">Copyright © 2017 BlackMarket</view>
+    </view>
+  </view>
+</view>

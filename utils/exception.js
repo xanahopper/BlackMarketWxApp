@@ -6,13 +6,16 @@ let ErrorTypes = {
     BindInfo: 5,
     Server: 6,
     Network: 7,
-    EmptyLocalBind: 8
+    EmptyLocalBind: 8,
+    Response: 9,
+    NoChange: 10,
+    Empty: 11,
+    StorageFailed: 12
 }
 
 class SessionExpiredError extends Error {
     constructor(msg) {
         super(msg)
-        this.message = msg
         this.type = 1
     }
 }
@@ -20,7 +23,6 @@ class SessionExpiredError extends Error {
 class LoginError extends Error {
     constructor(msg) {
         super(msg)
-        this.message = msg
         this.type = 2
     }
 }
@@ -28,7 +30,6 @@ class LoginError extends Error {
 class SessionError extends Error {
     constructor(msg) {
         super(msg)
-        this.message = msg
         this.type = 3
     }
 }
@@ -36,7 +37,6 @@ class SessionError extends Error {
 class UserInfoError extends Error {
     constructor(msg) {
         super(msg)
-        this.message = msg
         this.type = 4
     }
 }
@@ -44,7 +44,6 @@ class UserInfoError extends Error {
 class BindInfoError extends Error {
     constructor(msg) {
         super(msg)
-        this.message = msg
         this.type = 5
     }
 }
@@ -66,8 +65,37 @@ class NetworkError extends Error {
 class EmptyLocalBindError extends Error {
     constructor(msg, session) {
         super(msg)
-        this.type = 8,
+        this.type = 8
         this.session = session
+    }
+}
+
+class ResponseError extends Error {
+    constructor(msg, data) {
+        super(msg)
+        this.type = 9
+        this.data = data
+    }
+}
+
+class NoChangeError extends Error {
+    constructor(msg) {
+        super(msg)
+        this.type = 10
+    }
+}
+
+class EmptyError extends Error {
+    constructor(msg) {
+        super(msg)
+        this.type = 11
+    }
+}
+
+class StorageFailedError extends Error {
+    constructor(msg) {
+        super(msg)
+        this.type = 12
     }
 }
 
@@ -80,5 +108,9 @@ module.exports = {
     ServerError,
     NetworkError,
     EmptyLocalBindError,
+    ResponseError,
+    NoChangeError,
+    EmptyError,
+    StorageFailedError,
     ErrorTypes
 }

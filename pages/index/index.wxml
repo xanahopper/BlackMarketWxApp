@@ -3,14 +3,14 @@
     <view class="page__bd">
         <view class="bm-top-fixed-container">
             <view class="bm-top-bar">
-                <view class="bm-top-button" bindtap="toggleSort">
+                <!--<view class="bm-top-button" bindtap="toggleSort">
                     <text class="{{'bm-top-button__text ' + ((sortState == 0 || sortState == 1) ? 'active' : '') }}">综合</text>
                     <image class="bm-top-button__icon" 
                         src="{{ sortShowed ? '/images/order.png' : '/images/inverse-order.png'}}"></image>
-                </view>
-                <view class="bm-top-button" data-state="2" bindtap="setSortState">
+                </view>-->
+                <!--<view class="bm-top-button" data-state="2" bindtap="setSortState">
                     <text class="bm-top-button__text {{(sortState == 2) ? 'active' : ''}}">人气</text>
-                </view>
+                </view>-->
                 <view class="bm-top-button" data-state="2" bindtap="toggleTimeSort">
                     <text class="bm-top-button__text {{(sortState == 3 || sortState == 4) ? 'active' : ''}}">发布时间</text>
                     <image class="bm-top-button__icon" src="/images/sortable.png" 

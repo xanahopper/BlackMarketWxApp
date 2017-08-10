@@ -6,7 +6,7 @@ Page({
     userInfo: {},
     filterShowed: false,
     sortShowed: false,
-    sortState: 0,
+    sortState: 3,
     inputShowed: false,
     inputVal: "",
     hasMore: true,
@@ -38,16 +38,24 @@ Page({
     }]
   },
   onLoad: function () {
-    console.log('onLoad')
-    var that = this
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
-    app.checkLogin()
-    .then(data => {
-      wx.hideLoading()
-    })
+    // console.log('onLoad')
+    // var that = this
+    // wx.showLoading({
+    //   title: '加载中',
+    //   mask: true
+    // })
+    // app.checkLogin()
+    // .then(data => {
+    //   if (data) that.setData(data)
+    //   wx.hideLoading()
+    // })
+    if (app.globalData.session && app.globalData.userInfo && app.globalData.bindInfo) {
+      this.setData(app.globalData)
+    } else {
+      wx.redirectTo({
+        url: '../splash/splash'
+      })
+    }
   },
   showInput: function () {
       this.setData({

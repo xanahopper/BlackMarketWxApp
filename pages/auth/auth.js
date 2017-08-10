@@ -1,4 +1,7 @@
 // auth.js
+import wxw from '../../utils/wrapper'
+import { ErrorTypes } from '../../utils/exception'
+
 var app = getApp()
 Page({
 
@@ -10,12 +13,17 @@ Page({
     verifyCode: null,
     isAgree: false,
     showTopTips: false,
-    
+    TopTips: "信息不完整",
+
     gradeIndex: 0,
     grades: ['2014', '2015', '2016', '2017'],
 
     typeIndex: 0,
     types: ['双学位', '元培PPE', '其他'],
+    session: null,
+
+    verifyCodeCountdown: 0,
+    edit: false
   },
 
   /**
@@ -23,11 +31,35 @@ Page({
    */
   onLoad: function (options) {
     console.log('Auth onLoad')
-    if (app.globalData.bindInfo) {
-      console.log('Auth redirect to index')
-      wx.redirectTo({
-        url: '../index/index'
+    let that = this
+    if (options.edit && options.edit == "1") {
+      this.setData({
+        edit: true,
+        isAgree: true,
+        gradeIndex: this.data.grades.indexOf(app.globalData.bindInfo.grade),
+        typeIndex: app.globalData.bindInfo.type,
+        phoneNum: app.globalData.bindInfo.mobile,
+        session: app.globalData.session
       })
+    } else {
+      wxw.getSession()
+        .then(session => {
+          if (typeof session === "string") {
+            that.setData({
+              session
+            })
+          } else {
+            wx.redirectTo({
+              url: '../error/error'
+            })
+          }
+        })
+      if (app.globalData.bindInfo && !this.data.edit) {
+        console.log('Auth redirect to index')
+        wx.switchTab({
+          url: '../index/index'
+        })
+      }
     }
   },
 
@@ -35,107 +67,114 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  },
-
-  bindAgreeChange: function(e) {
+  bindAgreeChange: function (e) {
     this.setData({
       isAgree: !!e.detail.value.length
     })
   },
 
-  bindPhoneInput: function(e) {
+  bindPhoneInput: function (e) {
     this.setData({
       phoneNum: e.detail.value
     })
   },
 
-  bindVerifyInput: function(e) {
+  bindVerifyInput: function (e) {
     this.setData({
       verifyCode: e.detail.value
     })
   },
 
-  showTopTips: function(tip) {
+  showTopTips: function (tip) {
     let that = this
     this.setData({
+      TopTips: tip || that.data.TopTips,
       showTopTips: true
     })
-    setTimeout(function() {
+    setTimeout(function () {
       that.setData({
         showTopTips: false
       })
     }, 3000)
   },
 
-  submitBindPhone: function() {
+  submitBindPhone: function () {
     if (this.data.isAgree && this.data.phoneNum != null && this.data.verifyCode != null) {
-      app.setUserBindInfo({
-          phoneNum: this.data.phoneNum
-      })
-      wx.showToast({
-        title: '绑定成功',
-        icon: 'success',
-        duration: 2000,
-        mask: true,
-        complete: function() {
-          wx.reLaunch({
-            url: '/pages/index/index'
+      let data = {
+        mobile: this.data.phoneNum,
+        verify_code: this.data.verifyCode,
+        session_key: this.data.session,
+        grade: this.data.grades[this.data.gradeIndex],
+        type: this.data.typeIndex
+      }
+      wxw.uploadStudentInfo(this.data.session, data)
+        .then(res => {
+          app.globalData.bindInfo = data
+          wx.showToast({
+            title: '绑定成功',
+            icon: 'success',
+            duration: 2000,
+            mask: true,
+            complete: function () {
+              setTimeout(() => {
+                wx.switchTab({
+                  url: '/pages/index/index'
+                })
+              }, 2000)
+            }
           })
-          // wx.redirectTo({
-          //   url: '../index/index'
-          // })
-        }
-      })
+        })
+        .catch(err => {
+          console.log(err)
+          if (err.type && err.type == ErrorTypes.Response) {
+            this.showTopTips(err.errMsg)
+          }
+        })
     } else {
-      this.showTopTips()
+      this.showTopTips("请填写完整的信息")
     }
   },
 
-  requestVerifyCode: function() {
+  requestVerifyCode: function () {
+    let that = this
+    if (this.data.verifyCodeCountdown == 0) {
+      if (this.data.phoneNum) {
+        wxw.getVerifyCode(this.data.session, this.data.phoneNum)
+          .then(res => {
+            console.log(res)
+            that.setData({ verifyCodeCountdown: 60 })
+            that.countdown(that)
+          })
+          .catch(err => {
+            if (err.type && err.type == ErrorTypes.Response) {
+              if (err.data.errMsg) {
+                that.showTopTips(err.data.errMsg)
+              }
+            }
+          })
+      } else {
+        this.showTopTips("请填写有效的手机号码")
+      }
+    }
+  },
 
+  countdown(that) {
+    var second = that.data.verifyCodeCountdown
+    if (second == 0) {
+      that.setData({
+        verifyCodeCountdown: 0,
+      })
+      return
+    }
+    let time = setTimeout(() => {
+      that.setData({
+        verifyCodeCountdown: second - 1
+      })
+      that.countdown(that)
+    }, 1000)
   },
 
   bindGradeChange(e) {
@@ -148,5 +187,8 @@ Page({
     this.setData({
       typeIndex: e.detail.value
     })
+  },
+  goBack(e) {
+    wx.navigateBack()
   }
 })

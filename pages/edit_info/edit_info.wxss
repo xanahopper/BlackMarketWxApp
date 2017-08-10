@@ -1,0 +1,5 @@
+/* edit_info.wxss */
+
+.page__bd {
+  padding-top: 20px;
+}

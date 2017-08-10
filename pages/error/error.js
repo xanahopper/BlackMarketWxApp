@@ -19,8 +19,8 @@ Page({
     // 页面关闭
   },
   gotoIndex(e) {
-    wx.switchTab({
-      url: '/pages/index/index'
+    wx.redirectTo({
+      url: '/pages/splash/splash'
     })
   }
 })
