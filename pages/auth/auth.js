@@ -1,7 +1,7 @@
 // auth.js
 import wxw from '../../utils/wrapper'
 import { ErrorTypes } from '../../utils/exception'
-
+console.log(ErrorTypes)
 var app = getApp()
 Page({
 
@@ -128,9 +128,9 @@ Page({
           })
         })
         .catch(err => {
-          console.log(err)
           if (err.type && err.type == ErrorTypes.Response) {
-            this.showTopTips(err.errMsg)
+            console.error(err.data)
+            this.showTopTips(err.data.data.errmsg)
           }
         })
     } else {

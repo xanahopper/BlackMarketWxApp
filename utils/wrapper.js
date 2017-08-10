@@ -207,7 +207,7 @@ let wxw = {
     })
   },
 
-  compareUserInfo(res) {
+  compareUserInfo(res, check) {
     let that = this
     return that.getStorage(that.keys.userInfo)
       .then(info => {
@@ -218,7 +218,7 @@ let wxw = {
         }
       })
       .catch(err => {
-        if (err && err.type && err.type == ErrorTypes.NoChange) {
+        if (err && err.type && err.type == ErrorTypes.NoChange && check) {
           return Promise.reject(err)
         } else {
           return Promise.resolve(res)
@@ -226,9 +226,9 @@ let wxw = {
       })    // 本地不存在时，一定未上传
   },
 
-  uploadUserInfo(session, result) {
+  uploadUserInfo(session, result, check = false) {
     let that = this
-    return this.compareUserInfo(result)
+    return this.compareUserInfo(result, check)
       .then(res => {
         return that.request(this.urls.uploadUserInfoUrl,
           res,

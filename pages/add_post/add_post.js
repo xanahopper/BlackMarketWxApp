@@ -5,7 +5,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    courses: ["（无）"],
+    demandIndex: 0,
+    supplyIndex: 0,
+
+    comment: "",
+    commentLength: 0,
+
+    showTopTips: false,
+    TopTips: "信息不完整",
   },
 
   /**
@@ -62,5 +70,28 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+
+  bindCommentChange(e) {
+    this.setData({
+      comment: e.detail.value,
+      commentLength: e.detail.value.length
+    })
+  },
+
+  submitAddPost(e) {
+
+  },
+
+  bindDemandChange(e) {
+    this.setData({
+      demandIndex: e.detail.value
+    })
+  },
+
+  bindSupplyChange(e) {
+    this.setData({
+      supplyIndex: e.detail.value
+    })
   }
 })

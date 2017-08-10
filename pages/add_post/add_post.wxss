@@ -1,1 +1,5 @@
 /* add_post.wxss */
+
+.page__bd {
+    padding-top: 20px;
+}

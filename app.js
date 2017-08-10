@@ -21,6 +21,10 @@ App({
     session: null,
   },
 
+  errorMsgs: {
+    4001: '微信用户不存在'
+  },
+
   constants: {
     requestUrl: "https://pkublackmarket.cn/api/v1/wechat/"
   },
