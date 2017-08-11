@@ -1,7 +1,6 @@
 // auth.js
 import wxw from '../../utils/wrapper'
 import { ErrorTypes } from '../../utils/exception'
-console.log(ErrorTypes)
 var app = getApp()
 Page({
 

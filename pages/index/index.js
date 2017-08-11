@@ -1,5 +1,8 @@
 //index.js
 //获取应用实例
+import wxw from '../../utils/wrapper'
+import { ErrorTypes } from '../../utils/exception'
+import moment from '../../utils/moment.min'
 var app = getApp()
 Page({
   data: {
@@ -10,45 +13,11 @@ Page({
     inputShowed: false,
     inputVal: "",
     hasMore: true,
-    posts: [{
-      postId: 1,
-      supply: '奇葩学',
-      time: '2017-08-06',
-      state: 0
-    }, {
-      postId: 1,
-      supply: '奇葩学',
-      time: '2017-08-06',
-      state: 0
-    }, {
-      postId: 1,
-      supply: '奇葩学',
-      time: '2017-08-06',
-      state: 0
-    }, {
-      postId: 1,
-      supply: '奇葩学',
-      time: '2017-08-06',
-      state: 0
-    }, {
-      postId: 1,
-      supply: '奇葩学',
-      time: '2017-08-06',
-      state: 0
-    }]
+    courses: {},
+    posts: []
   },
   onLoad: function () {
-    // console.log('onLoad')
-    // var that = this
-    // wx.showLoading({
-    //   title: '加载中',
-    //   mask: true
-    // })
-    // app.checkLogin()
-    // .then(data => {
-    //   if (data) that.setData(data)
-    //   wx.hideLoading()
-    // })
+    let that = this
     if (app.globalData.session && app.globalData.userInfo && app.globalData.bindInfo) {
       this.setData(app.globalData)
     } else {
@@ -56,6 +25,30 @@ Page({
         url: '../splash/splash'
       })
     }
+
+    wxw.getCourses(app.globalData.session)
+      .then(res => {
+        let courses = {}
+        res.data.forEach(item => {
+          courses[item.id] = item
+        })
+        that.setData({
+          courses
+        })
+      })
+
+    wxw.getPost(app.globalData.session)
+      .then(res => {
+        console.log(res.data)
+        res.data.forEach(item => {
+          item.create_time = moment(item.create_time).format('YYYY-MM-DD HH:mm:ss')
+          item.update_time = moment(item.update_time).format('YYYY-MM-DD HH:mm:ss')
+        })
+        that.setData({
+          posts: res.data
+        })
+      })
+
   },
   showInput: function () {
       this.setData({

@@ -32,7 +32,10 @@ let wxw = {
     checkSessionUrl: "https://pkublackmarket.cn/api/v1/wechat/check_session",
     uploadUserInfoUrl: "https://pkublackmarket.cn/api/v1/wechat/user",
     studentInfoUrl: "https://pkublackmarket.cn/api/v1/student/",
-    verifyCodeUrl: "https://pkublackmarket.cn/api/v1/student/register"
+    verifyCodeUrl: "https://pkublackmarket.cn/api/v1/student/register",
+
+    courseUrl: "https://pkublackmarket.cn/api/v1/course",
+    postUrl: "https://pkublackmarket.cn/api/v1/course/post",
   },
 
   /**
@@ -282,6 +285,19 @@ let wxw = {
   uploadStudentInfo(session, info, method = 'POST') {
     return this.request(this.urls.studentInfoUrl, info,
       this.getSessionHeader(session), 'json', method)
+  },
+
+  getCourses(session) {
+    return this.request(this.urls.courseUrl, {}, this.getSessionHeader(session))
+  },
+  
+  getPost(session, start = 0, limit = 10) {
+    return this.request(this.urls.postUrl, {start, limit}, this.getSessionHeader(session),
+      'form')
+  },
+
+  createPost(session, data) {
+    return this.request(this.urls.postUrl, data, this.getSessionHeader(session), 'json', 'POST')
   }
 }
 

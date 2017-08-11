@@ -3,3 +3,7 @@
 .page__bd {
     padding-top: 20px;
 }
+
+.text-warn {
+    color: red;
+}
