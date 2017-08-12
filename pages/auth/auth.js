@@ -111,7 +111,7 @@ Page({
       }
       wxw.uploadStudentInfo(this.data.session, data)
         .then(res => {
-          app.globalData.bindInfo = data
+          app.globalData.bindInfo = res.data
           wx.showToast({
             title: '绑定成功',
             icon: 'success',
@@ -127,7 +127,7 @@ Page({
           })
         })
         .catch(err => {
-          if (err.type && err.type == ErrorTypes.Response) {
+          if (err.type && err.type === ErrorTypes.Response) {
             console.error(err.data)
             this.showTopTips(err.data.data.errmsg)
           }
@@ -139,7 +139,7 @@ Page({
 
   requestVerifyCode: function () {
     let that = this
-    if (this.data.verifyCodeCountdown == 0) {
+    if (this.data.verifyCodeCountdown === 0) {
       if (this.data.phoneNum) {
         wxw.getVerifyCode(this.data.session, this.data.phoneNum)
           .then(res => {
@@ -148,7 +148,7 @@ Page({
             that.countdown(that)
           })
           .catch(err => {
-            if (err.type && err.type == ErrorTypes.Response) {
+            if (err.type && err.type === ErrorTypes.Response) {
               if (err.data.errMsg) {
                 that.showTopTips(err.data.errMsg)
               }
@@ -161,8 +161,8 @@ Page({
   },
 
   countdown(that) {
-    var second = that.data.verifyCodeCountdown
-    if (second == 0) {
+    let second = that.data.verifyCodeCountdown
+    if (second === 0) {
       that.setData({
         verifyCodeCountdown: 0,
       })
