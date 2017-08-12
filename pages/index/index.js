@@ -96,6 +96,7 @@ Page({
           loading: false
         }
         if (res.data.length  < 10) data.hasMore = false
+        else data.hasMore = true
         app.processData(res.data)
         data.posts = res.data
         that.setData(data)

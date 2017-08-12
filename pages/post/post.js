@@ -44,7 +44,6 @@ Page({
           that.setData({
             post: res.data
           })
-          console.log(res.data.supply && res.data.supply.course_id != 0)
         })
         .catch(err => {
           this.setData({
@@ -87,7 +86,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    wx.stopPullDownRefresh()
   },
 
   /**

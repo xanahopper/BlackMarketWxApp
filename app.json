@@ -12,10 +12,10 @@
     "pages/post/post"
   ],
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#333333",
     "navigationBarTitleText": "Black Market",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "light"
   },
   "tabBar": {
     "backgroundColor": "#fff",

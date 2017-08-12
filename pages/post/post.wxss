@@ -12,6 +12,10 @@
     color: #E64A19;
 }
 
-.weui-form-preview{
+.weui-form-preview {
     margin-bottom: 25px;
+}
+
+.weui-form-preview_last {
+    margin-bottom: 0;
 }

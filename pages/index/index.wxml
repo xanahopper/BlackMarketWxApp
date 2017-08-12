@@ -143,7 +143,7 @@
                 </view>
             </navigator>
         </view>
-        <block wx:if="{{!inputShowed || !filterShowed}}">
+        <block>
             <view class="weui-loadmore" wx:if="{{hasMore && loading && posts.length >0}}">
                 <view class="weui-loading"></view>
                 <view class="weui-loadmore__tips">正在加载</view>
