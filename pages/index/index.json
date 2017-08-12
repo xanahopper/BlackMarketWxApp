@@ -1,3 +1,4 @@
 {
-    "navigationBarTitleText": "Black Market"
+    "navigationBarTitleText": "Black Market",
+    "enablePullDownRefresh": true
 }

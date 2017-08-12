@@ -13,11 +13,14 @@ import {
   ErrorTypes
 } from './utils/exception';
 import wxw from './utils/wrapper';
+import moment from './utils/moment'
 
 App({
   globalData: {
     userInfo: null,
     bindInfo: null,
+    courses: [],
+    courseNames: [],
     session: null,
   },
 
@@ -40,8 +43,17 @@ App({
     console.log('App onLaunch')
   },
 
+  processData(data, cb, origin = false) {
+    data.forEach(item => {
+      item.create_time = moment.utc(item.create_time).format('YYYY-MM-DD HH:mm:ss')
+      item.update_time = moment.utc(item.create_time).format('YYYY-MM-DD HH:mm:ss')
+      if (!origin && item.message.length > 15) item.message = item.message.substr(0, 15) + '...'
+      if (cb) cb(item)
+    })
+  },
+
   checkLogin: function () {
-    var that = this
+    let that = this
     console.log('Start check login')
     return wxw.checkSession()
       .then(() => {
@@ -84,7 +96,7 @@ App({
       })
       .then(session => wxw.getLocalStudentInfo(session))
       .catch(err => {
-        if (err.type && err.type == ErrorTypes.EmptyLocalBind) {
+        if (err.type && err.type === ErrorTypes.EmptyLocalBind) {
           return wxw.fetchServerStudentInfo(err.session)
         } else {
           return Promise.reject(err)
@@ -93,6 +105,14 @@ App({
       .then(res => {
         console.log(res)
         that.globalData.bindInfo = res
+        wxw.getCourses(that.globalData.session)
+          .then(res => {
+            that.globalData.courses = res.data
+            that.globalData.courseNames = []
+            res.data.forEach(item => {
+              that.globalData.courseNames.push(item.name)
+            })
+          })
         return Promise.resolve(that.globalData)
       })
       .catch(err => {

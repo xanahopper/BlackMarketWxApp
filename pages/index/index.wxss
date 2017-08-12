@@ -174,3 +174,47 @@ text.active {
   width: 64rpx;
   height: 64rpx;
 }
+
+.bm-top-filter-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0;
+}
+
+.bm-top-filter-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.bm-top-filter-column {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.bm-filter-cell {
+  padding: 5px 10px;
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+}
+
+.bm-filter-cell__hd {
+  flex: 1;
+}
+
+.bm-filter-cell__bd {
+  text-align: right;
+  color: #999999;
+}
+
+.bm-filter-input {
+  height: 12px;
+  background-color: #fff;
+  border: 1px solid #999999;
+  padding: 0 5px;
+  margin-left: 5px;
+  width: 80px;
+
+}

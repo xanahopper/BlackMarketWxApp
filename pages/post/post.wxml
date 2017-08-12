@@ -1,0 +1,105 @@
+<!--post.wxml-->
+<view class="page">
+    <view class="page__bd">
+
+
+        <view class="weui-form-preview" wx:if="{{post.demand && post.demand.course_id != 0}}">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__post" >
+                    <view class="weui-form-preview__label">需求课程</view>
+                    <view class="weui-form-preview__value_in-hd demand-style">
+                        {{ courses[post.demand.course_id].name}}
+                    </view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__post">
+                    <view class="weui-form-preview__label">课程教师</view>
+                    <view class="weui-form-preview__value">{{ courses[post.demand.course_id].teacher }}</view>
+                </view>
+                <view class="weui-form-preview__post">
+                    <view class="weui-form-preview__label">绩点</view>
+                    <view class="weui-form-preview__value">{{ courses[post.demand.course_id].credit }}</view>
+                </view>
+            </view>
+
+        </view>
+
+        <view class="weui-form-preview" wx:if="{{post.supply && post.supply.course_id!=0}}">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__post">
+                    <view class="weui-form-preview__label">提供课程</view>
+                    <view class="weui-form-preview__value_in-hd supply-style">
+                        {{ courses[post.supply.course_id].name}}
+                    </view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__post">
+                    <view class="weui-form-preview__label">课程教师</view>
+                    <view class="weui-form-preview__value">{{ courses[post.supply.course_id].teacher }}</view>
+                </view>
+                <view class="weui-form-preview__post">
+                    <view class="weui-form-preview__label">绩点</view>
+                    <view class="weui-form-preview__value">{{ courses[post.supply.course_id].credit }}</view>
+                </view>
+            </view>
+
+        </view>
+        <!-- 课程信息 结束 -->
+        <view class="weui-cells__title">发布信息</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                    <image src="{{post.avatar_url}}"
+                           style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view class="weui-cell__bd">{{post.student_name}}</view>
+            </view>
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:if="{{post.mobile}}"
+                  bindtap="bindDialMobile">
+                <view class="weui-cell__bd">手机</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{post.mobile}}</view>
+            </view>
+
+            <view class="weui-cell" wx:if="{{post.wechat}}">
+                <view class="weui-cell__bd">微信</view>
+                <view class="weui-cell__ft">{{post.wechat}}</view>
+            </view>
+
+            <view class="weui-cell" wx:if="{{post.message}}">
+                <view class="weui-cell__hd"><view class="weui-label">留言</view></view>
+                <view class="weui-cell__bd">{{post.message}}</view>
+            </view>
+        </view>
+        <!-- 发布信息 结束 -->
+        <view class="weui-cells__title">发布状态</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">状态</view>
+                <view class="weui-cell__ft">
+                    <block wx:if="{{post.status == 0}}">交易中</block>
+                    <block wx:elif="{{post.status == 1}}">交易完成</block>
+                    <block wx:elif="{{post.status == 2}}">交易关闭</block>
+                    <block wx:else>未知</block>
+                </view>
+
+            </view>
+            <view class="weui-cell">
+                <view class="weui-cell__bd">发布日期</view>
+                <view class="weui-cell__ft">{{post.create_time}}</view>
+            </view>
+
+            <view class="weui-cell" wx:if="{{post.create_time !== post.update_time}}">
+                <view class="weui-cell__bd">修改日期</view>
+                <view class="weui-cell__ft">{{post.update_time}}</view>
+            </view>
+
+            <view class="weui-cell">
+                <view class="weui-cell__bd">查看次数</view>
+                <view class="weui-cell__ft">{{post.pv}}</view>
+            </view>
+        </view>
+
+    </view>
+</view>

@@ -8,7 +8,8 @@
     "pages/no_auth/no_auth",
     "pages/error/error",
     "pages/edit_info/edit_info",
-    "pages/add_post/add_post"
+    "pages/add_post/add_post",
+    "pages/post/post"
   ],
   "window": {
     "backgroundTextStyle": "light",

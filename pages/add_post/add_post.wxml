@@ -49,20 +49,20 @@
     <view class="weui-cells__title">联系方式</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_switch">
-        <view class="weui-cell__bd">显示手机</view>
+        <view class="weui-cell__hd">
+          <view class="weui-label">显示手机</view>
+        </view>
+        <view class="weui-cell__bd"><text wx:if="{{useMobile}}">{{bindInfo.mobile}}</text></view>
         <view class="weui-cell__ft">
           <switch checked="{{useMobile}}" bindchange="bindUseMobileChange"  />
         </view>
       </view>
-      <view class="weui-cell weui-cell_input weui-cell_warn">
+      <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">微信号</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入微信号" type="text" confirm-type="next"  />
-        </view>
-        <view class="weui-cell__ft" hidden="true">
-          <icon type="warn" size="23" color="#E64340"></icon>
+          <input class="weui-input" placeholder="请输入微信号" type="text" confirm-type="next" bindinput="bindWechatChange"  />
         </view>
       </view>
     </view>
@@ -81,6 +81,7 @@
     <!-- weui-cells -->
     <view class="weui-btn-area">
       <button class="weui-btn" type="primary" bindtap="submitCreatePost">发布</button>
+      <button class="weui-btn" type="normal" bindtap="goBack">取消</button>
     </view>
   </view>
 </view>

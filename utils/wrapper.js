@@ -34,8 +34,8 @@ let wxw = {
     studentInfoUrl: "https://pkublackmarket.cn/api/v1/student/",
     verifyCodeUrl: "https://pkublackmarket.cn/api/v1/student/register",
 
-    courseUrl: "https://pkublackmarket.cn/api/v1/course",
-    postUrl: "https://pkublackmarket.cn/api/v1/course/post",
+    courseUrl: "https://pkublackmarket.cn/api/v1/course/",
+    postUrl: "https://pkublackmarket.cn/api/v1/course/post/",
   },
 
   /**
@@ -291,9 +291,13 @@ let wxw = {
     return this.request(this.urls.courseUrl, {}, this.getSessionHeader(session))
   },
   
-  getPost(session, start = 0, limit = 10) {
+  getPostList(session, start = 0, limit = 10) {
     return this.request(this.urls.postUrl, {start, limit}, this.getSessionHeader(session),
       'form')
+  },
+
+  getPost(session, id) {
+    return this.request(this.urls.postUrl + id, {}, this.getSessionHeader(session))
   },
 
   createPost(session, data) {

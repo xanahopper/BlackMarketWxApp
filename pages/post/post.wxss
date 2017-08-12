@@ -1,0 +1,17 @@
+/* post.wxss */
+
+.page__bd {
+    padding-top: 20px;
+}
+
+.supply-style {
+    color: #388e3c;
+}
+
+.demand-style {
+    color: #E64A19;
+}
+
+.weui-form-preview{
+    margin-bottom: 25px;
+}
