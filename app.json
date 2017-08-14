@@ -9,7 +9,8 @@
     "pages/error/error",
     "pages/edit_info/edit_info",
     "pages/add_post/add_post",
-    "pages/post/post"
+    "pages/post/post",
+    "pages/my_list/my_list"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -18,8 +19,8 @@
     "navigationBarTextStyle": "light"
   },
   "tabBar": {
-    "backgroundColor": "#fff",
-    "selectedColor": "black",
+    "backgroundColor": "#ffffff",
+    "selectedColor": "#000000",
     "list": [
       {
         "pagePath": "pages/index/index",

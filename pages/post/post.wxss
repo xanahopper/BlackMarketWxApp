@@ -5,11 +5,11 @@
 }
 
 .supply-style {
-    color: #388e3c;
+    color: #E64A19;
 }
 
 .demand-style {
-    color: #E64A19;
+    color: #388e3c;
 }
 
 .weui-form-preview {

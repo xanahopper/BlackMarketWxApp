@@ -22,6 +22,7 @@ App({
     courses: [],
     courseNames: [],
     session: null,
+    needRefresh: true
   },
 
   errorMsgs: {
@@ -46,7 +47,7 @@ App({
   processData(data, cb, origin = false) {
     data.forEach(item => {
       item.create_time = moment.utc(item.create_time).format('YYYY-MM-DD HH:mm:ss')
-      item.update_time = moment.utc(item.create_time).format('YYYY-MM-DD HH:mm:ss')
+      item.update_time = moment.utc(item.update_time).format('YYYY-MM-DD HH:mm:ss')
       if (!origin && item.message.length > 15) item.message = item.message.substr(0, 15) + '...'
       if (cb) cb(item)
     })

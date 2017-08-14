@@ -59,11 +59,11 @@
 }
 
 .supply-style {
-  color: #388e3c;
+  color: #E64A19;
 }
 
 .demand-style {
-  color: #E64A19;
+  color: #388e3c;
 }
 
 .bm-top-fixed-container {
@@ -178,7 +178,6 @@ text.active {
 .bm-top-filter-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   padding: 0;
 }
 
@@ -191,6 +190,18 @@ text.active {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+
+.bm-top-cells:after {
+  border: 0;
+}
+
+.bm-top-cells:before {
+  border: 0;
+}
+
+.weui-btn-area {
+  margin-bottom: 1.17em;
 }
 
 .bm-filter-cell {

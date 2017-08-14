@@ -40,16 +40,14 @@
     </view>
     <!-- weui-cells -->
     <!-- weui-cells -->
-    <view class="weui-cells__title">验证信息</view>
+    <!--<view class="weui-cells__title"></view>-->
     <!-- weui- -->
-    <view class="weui-cells weui-cells_after-title">
-      <navigator url="" class="weui-cell">
-        <view class="weui-cell__bd">证件信息</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">无</view>
+    <view class="weui-cells">
+      <navigator url="../my_list/my_list" class="weui-cell">
+        <view class="weui-cell__bd">我的发布</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </navigator>
     </view>
-    <!-- weui-cells -->
-    <view class="weui-cells__tips">没有验证可能会有部分功能限制</view>
     <!--<view class="weui-btn-area">
     <button class="weui-btn" type="warn" bindtap="logout">注销</button>
   </view>

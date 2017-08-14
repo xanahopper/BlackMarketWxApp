@@ -17,44 +17,36 @@
                 </view>
             </view>
             <view class="bm-top-container bm-top-filter-container" wx:if="{{filterShowed}}">
-                <view class="bm-top-filter-row">
-                    <view class="bm-top-filter-column">
-                        <!--<view><text>提供</text><input type="text"></input> </view>-->
-                        <view class="bm-filter-cell">
-                            <view class="bm-filter-cell__hd">提供</view>
-                            <view class="bm-filter-cell__bd">
-                                <input class="bm-filter-input"/>
-                            </view>
+                <view class="weui-cells weui-cells_after-title bm-top-cells">
+                    <!--<view><text>提供</text><input type="text"></input> </view>-->
+                    <view class="weui-cell weui-cell_select">
+                        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                            <view class="weui-label">提供</view>
                         </view>
-                        <view class="bm-filter-cell">
-                            <view class="bm-filter-cell__hd">授课老师</view>
-                            <view class="bm-filter-cell__bd">
-                                <input class="bm-filter-input"/>
-                            </view>
+                        <view class="weui-cell__bd">
+                            <picker bindchange="bindSupplyChange" value="{{supplyIndex}}" range="{{courseNames}}"
+                                    wx:if="{{!edit}}">
+                                <view class="weui-select weui-select_in-select-after">{{courses[supplyIndex].name}}</view>
+                            </picker>
                         </view>
                     </view>
 
-                    <view class="bm-top-filter-column">
-                        <view class="bm-filter-cell">
-                            <view class="bm-filter-cell__hd">需求</view>
-                            <view class="bm-filter-cell__bd">
-                                <input class="bm-filter-input"/>
-                            </view>
+                    <view class="weui-cell weui-cell_select">
+                        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                            <view class="weui-label">需求</view>
                         </view>
-                        <view class="bm-filter-cell">
-                            <view class="bm-filter-cell__hd">授课老师</view>
-                            <view class="bm-filter-cell__bd">
-                                <input class="bm-filter-input"/>
-                            </view>
+                        <view class="weui-cell__bd">
+                            <picker bindchange="bindDemandChange" value="{{demandIndex}}" range="{{courseNames}}"
+                                    wx:if="{{!edit}}">
+                                <view class="weui-select weui-select_in-select-after">{{courses[demandIndex].name}}</view>
+                            </picker>
                         </view>
                     </view>
                 </view>
-                <view class="bm-top-filter-row">
-                    <view class="bm-top-filter-column">
 
-                    </view>
+                <view class="weui-btn-area">
+                    <button class="weui-btn" type="normal" bindtap="clearFilter">清空</button>
                 </view>
-
             </view>
             <view class="bm-top-container bm-top-sort-container" wx:if="{{sortShowed}}">
                 <view class="bm-top-sort-item" bindtap="setSortState" data-state="0">
@@ -71,15 +63,15 @@
         <view class="timeline" wx:if="{{!inputShowed || !filterShowed}}">
             <view class="weui-form-preview" wx:for="{{posts}}" wx:key="id">
                 <view class="weui-form-preview__hd">
-                    <view class="weui-form-preview__item" wx:if="{{item.demand && item.demand.course_id != 0}}">
-                        <view class="weui-form-preview__label">求</view>
-                        <view class="weui-form-preview__value_in-hd demand-style">{{ courses[item.demand.course_id].name
-                            }}
-                        </view>
-                    </view>
                     <view class="weui-form-preview__item" wx:if="{{item.supply && item.supply.course_id != 0}}">
                         <view class="weui-form-preview__label">供</view>
                         <view class="weui-form-preview__value_in-hd supply-style">{{ courses[item.supply.course_id].name
+                            }}
+                        </view>
+                    </view>
+                    <view class="weui-form-preview__item" wx:if="{{item.demand && item.demand.course_id != 0}}">
+                        <view class="weui-form-preview__label">求</view>
+                        <view class="weui-form-preview__value_in-hd demand-style">{{ courses[item.demand.course_id].name
                             }}
                         </view>
                     </view>
@@ -87,7 +79,7 @@
                 <view class="weui-form-preview__bd">
                     <view class="weui-form-preview__item">
                         <view class="weui-form-preview__label">发布人</view>
-                        <view class="weui-form-preview__value">{{ item.student_name }}</view>
+                        <view class="weui-form-preview__value">{{ item.student_id.username }}</view>
                     </view>
                     <view class="weui-form-preview__item">
                         <view class="weui-form-preview__label">发布日期</view>
@@ -98,13 +90,13 @@
                         <view class="weui-form-preview__value">{{ item.update_time }}</view>
                     </view>
                     <view class="weui-form-preview__item" wx:if="{{item.message}}">
-                        <view class="weui-form-preview__label">发布留言</view>
+                        <view class="weui-form-preview__label">留言</view>
                         <view class="weui-form-preview__value">{{ item.message }}</view>
                     </view>
                     <view class="weui-form-preview__item">
                         <view class="weui-form-preview__label">状态</view>
                         <view class="weui-form-preview__value">
-                            <block wx:if="{{item.status == 0}}">交易中</block>
+                            <block wx:if="{{item.status == 0}}">待交易</block>
                             <block wx:elif="{{item.status == 1}}">交易完成</block>
                             <block wx:elif="{{item.status == 2}}">交易关闭</block>
                             <block wx:else>未知</block>
@@ -112,7 +104,8 @@
                     </view>
                 </view>
                 <view class="weui-form-preview__ft">
-                    <navigator url="../post/post?id={{item.id}}" class="weui-form-preview__btn weui-form-preview__btn_primary"
+                    <navigator url="../post/post?id={{item.id}}"
+                               class="weui-form-preview__btn weui-form-preview__btn_primary"
                                hover-class="weui-form-preview__btn_active">查看
                     </navigator>
                 </view>
@@ -144,11 +137,11 @@
             </navigator>
         </view>
         <block>
-            <view class="weui-loadmore" wx:if="{{hasMore && loading && posts.length >0}}">
+            <view class="weui-loadmore" wx:if="{{!inited || hasMore && loading}}">
                 <view class="weui-loading"></view>
                 <view class="weui-loadmore__tips">正在加载</view>
             </view>
-            <view class="weui-loadmore weui-loadmore_line" wx:if="{{posts.length == 0}}">
+            <view class="weui-loadmore weui-loadmore_line" wx:if="{{inited && posts.length == 0}}">
                 <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
             </view>
             <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot" wx:if="{{!hasMore && posts.length >0}}">

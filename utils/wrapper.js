@@ -291,8 +291,8 @@ let wxw = {
     return this.request(this.urls.courseUrl, {}, this.getSessionHeader(session))
   },
   
-  getPostList(session, start = 0, limit = 10) {
-    return this.request(this.urls.postUrl, {start, limit}, this.getSessionHeader(session),
+  getPostList(session, order = 0, start = 0, limit = 10, supply = 0, demand = 0) {
+    return this.request(this.urls.postUrl, {order, start, limit, supply, demand}, this.getSessionHeader(session),
       'form')
   },
 
@@ -302,6 +302,10 @@ let wxw = {
 
   createPost(session, data) {
     return this.request(this.urls.postUrl, data, this.getSessionHeader(session), 'json', 'POST')
+  },
+
+  editPost(session, data, id) {
+    return this.request(this.urls.postUrl + id, data, this.getSessionHeader(session), 'json', 'PUT')
   }
 }
 

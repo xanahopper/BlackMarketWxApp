@@ -85,6 +85,9 @@ Page({
     this.setData({
       verifyCode: e.detail.value
     })
+    if (e.detail.value.length >= 6) {
+      wx.hideKeyboard()
+    }
   },
 
   showTopTips: function (tip) {

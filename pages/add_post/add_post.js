@@ -28,7 +28,9 @@ Page({
 
     useMobile: true,
     wechatNo: '',
-    bindInfo: {}
+    bindInfo: {},
+    edit: false,
+    post_id: 0
   },
 
   /**
@@ -53,6 +55,28 @@ Page({
       .catch(err => {
         console.error(err)
       })
+
+    if (options.edit && options.id) {
+      wx.setNavigationBarTitle({
+        title: '编辑信息'
+      })
+      wxw.getPost(app.globalData.session, options.id)
+        .then(res => {
+          console.log(res)
+          res = res.data
+          let data = {
+            edit: true,
+            post_id: res.id
+          }
+          if (res.demand.course_id !== 0) data.demandIndex = res.demand.course_id
+          if (res.supply.course_id !== 0) data.supplyIndex = res.supply.course_id
+          data.useMobile = (res.switch === 1)
+          data.wechatNo = res.wechat
+          data.message = res.message
+          data.messageLength = data.message.length
+          that.setData(data)
+        })
+    }
   },
 
   /**
@@ -124,6 +148,19 @@ Page({
     })
   },
 
+  checkInfo() {
+    if (!this.data.useMobile && !this.data.wechatNo) {
+      this.showTopTips('请至少填写一种联系方式')
+    } else if (this.data.supplyIndex === 0 && this.data.demandIndex === 0) {
+      this.showTopTips('请在需求和提供中至少选择一种')
+    } else if (this.data.supplyIndex === this.data.demandIndex) {
+      this.showTopTips('需求和提供不能相同')
+    } else {
+      return true
+    }
+    return false
+  },
+
   /**
    * 提交需求信息
    * {
@@ -138,17 +175,13 @@ Page({
    */
   submitCreatePost(e) {
     let that = this
-    if (!this.data.useMobile && !this.data.wechatNo) {
-      this.showTopTips('请至少填写一种联系方式')
-    } else if (this.data.supplyIndex === 0 && this.data.demandIndex === 0) {
-      this.showTopTips('请在需求和提供中至少选择一种')
-    } else {
+    if (this.checkInfo()) {
       let content = []
       if (this.data.demandIndex !== 0) content.push('需求：' + this.data.courseNames[this.data.demandIndex])
       if (this.data.supplyIndex !== 0) content.push('提供：' + this.data.courseNames[this.data.supplyIndex])
       wx.showModal({
         title: '发布确认',
-        content: content.join("，\n"),
+        content: content.join("\n"),
         confirmText: '发布',
         cancelText: '取消',
         success(res) {
@@ -158,13 +191,14 @@ Page({
               supply: Number.parseInt(that.data.supplyIndex),
               demand: Number.parseInt(that.data.demandIndex),
               'switch': that.data.useMobile ? 1 : 0,
-              mobile: app.globalData.bindInfo.mobile,
+              mobile: that.data.useMobile ? app.globalData.bindInfo.mobile : '',
               wechat: that.data.wechatNo,
               message: that.data.message,
             }
             wxw.createPost(app.globalData.session, data)
               .then(res => {
                 console.log(res)
+                app.globalData.needRefresh = true
                 wx.showToast({
                   title: '添加成功',
                   icon: 'success',
@@ -190,15 +224,46 @@ Page({
     }
   },
 
+  submitEditPost(e) {
+    let that = this
+    if (this.checkInfo()) {
+      let data = {
+        'switch': that.data.useMobile ? 1 : 0,
+        mobile: that.data.useMobile ? app.globalData.bindInfo.mobile : '',
+        wechat: that.data.wechatNo,
+        message: that.data.message,
+      }
+      wxw.editPost(app.globalData.session, data, this.data.post_id)
+        .then(res => {
+          app.globalData.needRefresh = true
+          wx.showToast({
+            title: '修改成功',
+            icon: 'success',
+            duration: 2000,
+            complete() {
+              setTimeout(() => {
+                wx.navigateBack()
+              }, 2000)
+            }
+          })
+        })
+        .catch(err => {
+          if (err.type && err.type === ErrorTypes.Response) {
+            that.showTopTips(err.data.data.errmsg)
+          }
+        })
+    }
+  },
+
   bindDemandChange(e) {
     this.setData({
-      demandIndex: e.detail.value,
+      demandIndex: Number.parseInt(e.detail.value)
     })
   },
 
   bindSupplyChange(e) {
     this.setData({
-      supplyIndex: e.detail.value,
+      supplyIndex: Number.parseInt(e.detail.value),
     })
   },
 
