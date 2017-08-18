@@ -36,6 +36,19 @@ let wxw = {
 
     courseUrl: "https://pkublackmarket.cn/api/v1/course/",
     postUrl: "https://pkublackmarket.cn/api/v1/course/post/",
+    myPostUrl: "https://pkublackmarket.cn/api/v1/student/post",
+    viewContractUrl: "https://pkublackmarket.cn/api/v1/course/post/viewcount"
+  },
+
+  showMessage(msg, title) {
+    if (msg) {
+      let options = {
+        content: msg,
+        showCancel: false
+      }
+      if (title) data.title = title
+      wx.showModal(options)
+    }
   },
 
   /**
@@ -151,7 +164,7 @@ let wxw = {
       this.getSessionHeader(session), 'form'
     )
       .then(() => Promise.resolve(session))
-      .catch(err => Promise.reject(err))
+      .catch(err => Promise.reject(SessionExpiredError()))
   },
 
   getSessionHeader(session, header = {}) {
@@ -306,6 +319,24 @@ let wxw = {
 
   editPost(session, data, id) {
     return this.request(this.urls.postUrl + id, data, this.getSessionHeader(session), 'json', 'PUT')
+  },
+
+  getMyPost(session, data) {
+    return this.request(this.urls.myPostUrl, data, this.getSessionHeader(session), 'form')
+  },
+
+  putPostStatus(session, post_id, status) {
+    return wxw.request(this.urls.postUrl + post_id + '/status', {
+      status
+    }, this.getSessionHeader(session), 'json', 'PUT')
+  },
+
+  viewPostContract(session, post_id) {
+    return this.request(this.urls.viewContractUrl, {post_id}, this.getSessionHeader(session), 'json', 'PUT')
+  },
+
+  getViewCount(session) {
+    return this.request(this.urls.viewContractUrl, {}, this.getSessionHeader(session))
   }
 }
 

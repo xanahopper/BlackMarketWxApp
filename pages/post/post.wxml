@@ -1,6 +1,7 @@
 <!--post.wxml-->
 <view class="page">
     <view class="page__bd">
+        <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
 
         <view class="weui-form-preview {{post.demand.course_id == 0 ? 'weui-form-preview_last' : ''}}"
               wx:if="{{post.supply && post.supply.course_id!=0}}">
@@ -18,7 +19,7 @@
                     <view class="weui-form-preview__value">{{ courses[post.supply.course_id].teacher }}</view>
                 </view>
                 <view class="weui-form-preview__post">
-                    <view class="weui-form-preview__label">绩点</view>
+                    <view class="weui-form-preview__label">学分</view>
                     <view class="weui-form-preview__value">{{ courses[post.supply.course_id].credit }}</view>
                 </view>
             </view>
@@ -42,7 +43,7 @@
                     <view class="weui-form-preview__value">{{ courses[post.demand.course_id].teacher }}</view>
                 </view>
                 <view class="weui-form-preview__post">
-                    <view class="weui-form-preview__label">绩点</view>
+                    <view class="weui-form-preview__label">学分</view>
                     <view class="weui-form-preview__value">{{ courses[post.demand.course_id].credit }}</view>
                 </view>
             </view>
@@ -54,7 +55,7 @@
             <view class="weui-cell">
                 <view class="weui-cell__hd">
                     <image src="{{post.student_id.avatar_url}}"
-                           style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                           style="margin-right: 5px;vertical-align: middle;width:48px; height: 48px;"></image>
                 </view>
                 <view class="weui-cell__bd">{{post.student_id.username}}</view>
             </view>
@@ -66,18 +67,29 @@
                 <view class="weui-cell__bd">类型</view>
                 <view class="weui-cell__ft">{{types[post.student_id.type]}}</view>
             </view>
-            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:if="{{post.switch == 1 && post.mobile}}"
-                  bindtap="bindDialMobile">
-                <view class="weui-cell__bd">手机</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">{{post.student_id.mobile}}</view>
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="viewContract"
+                  wx:if="{{ !hasViewedContract && post.status == 0 && post.student_id.id != bindInfo.id }}">
+                <view class="weui-cell__bd">联系方式</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">点击查看</view>
             </view>
+            <block wx:if="{{hasViewedContract || post.student_id.id == bindInfo.id}}">
+                <view class="weui-cell weui-cell_access" hover-class="weui-cell_active"
+                      wx:if="{{post.switch == 1 && post.mobile}}"
+                      bindtap="bindDialMobile">
+                    <view class="weui-cell__bd">手机</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access">
+                        {{ hasViewedContract ? post.student_id.mobile : '点击查看'}}
+                    </view>
+                </view>
 
-            <view class="weui-cell" hover-class="weui-cell_active" wx:if="{{post.wechat}}"
-                  bindtap="bindCopyWechat">
-                <view class="weui-cell__bd">微信</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access"><text selectable="true">{{post.wechat}}</text></view>
-            </view>
-
+                <view class="weui-cell" hover-class="weui-cell_active" wx:if="{{post.wechat}}"
+                      bindtap="bindCopyWechat">
+                    <view class="weui-cell__bd">微信</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access">
+                        {{ hasViewedContract ? post.wechat : '点击查看'}}
+                    </view>
+                </view>
+            </block>
             <view class="weui-cell" wx:if="{{post.message}}">
                 <view class="weui-cell__hd"><view class="weui-label">留言</view></view>
                 <view class="weui-cell__bd">
@@ -117,7 +129,7 @@
 
         <view class="weui-btn-area" wx:if="{{bindInfo.id == post.student_id.id && post.status == 0}}">
             <button class="weui-btn" type="primary" bindtap="changePostStatus">关闭交易</button>
-            <button class="weui-btn" type="normal" bindtap="editPost">编辑联系方式</button>
+            <button class="weui-btn" type="normal" bindtap="editPost">编辑</button>
         </view>
     </view>
 </view>

@@ -91,7 +91,7 @@
 }
 
 .bm-top-button__text {
-  font-size: 10pt;
+  font-size: 12pt;
 }
 
 .bm-top-button__icon {

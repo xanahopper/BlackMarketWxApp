@@ -104,7 +104,7 @@ Page({
   },
 
   submitBindPhone: function () {
-    if (this.data.isAgree && this.data.phoneNum != null && this.data.verifyCode != null) {
+    if (this.data.isAgree && this.data.phoneNum !== null && this.data.verifyCode !== null) {
       let data = {
         mobile: this.data.phoneNum,
         verify_code: this.data.verifyCode,
@@ -132,7 +132,7 @@ Page({
         .catch(err => {
           if (err.type && err.type === ErrorTypes.Response) {
             console.error(err.data)
-            this.showTopTips(err.data.data.errmsg)
+            wxw.showMessage(err.data.data.errmsg)
           }
         })
     } else {
@@ -153,7 +153,7 @@ Page({
           .catch(err => {
             if (err.type && err.type === ErrorTypes.Response) {
               if (err.data.errMsg) {
-                that.showTopTips(err.data.errMsg)
+                wxw.showMessage(err.data.errMsg)
               }
             }
           })

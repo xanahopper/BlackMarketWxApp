@@ -48,14 +48,15 @@ Page({
         that.setData(data)
         wx.hideNavigationBarLoading()
         wx.stopPullDownRefresh()
-        wx.pageScrollTo({
-          scrollTop: 0
-        })
+        // wx.pageScrollTo({
+        //   scrollTop: 0
+        // })
       })
       .catch(err => {
         that.setData({
           loading: false
         })
+        wx.hideNavigationBarLoading()
         wx.stopPullDownRefresh()
       })
   },
@@ -106,7 +107,8 @@ Page({
       this.setData({
         loading: true,
       })
-      wxw.getPostList(app.globalData.session, this.data.order, this.data.start, this.data.limit)
+      wxw.getPostList(app.globalData.session, this.data.order, this.data.start, this.data.limit,
+        this.data.filterSupply, this.data.filterDemand)
         .then(res => {
           console.log(res.data)
           let data = {
@@ -133,27 +135,6 @@ Page({
       loading: true
     })
     this.refreshPostList()
-  },
-  showInput: function () {
-    this.setData({
-      inputShowed: true,
-    })
-  },
-  hideInput: function () {
-    this.setData({
-      inputVal: '',
-      inputShowed: false,
-    })
-  },
-  clearInput: function () {
-    this.setData({
-      inputVal: '',
-    })
-  },
-  inputTyping: function (e) {
-    this.setData({
-      inputVal: e.detail.value,
-    })
   },
   toggleSort(e) {
     let that = this

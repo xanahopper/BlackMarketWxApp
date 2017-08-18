@@ -23,7 +23,7 @@
                     <view class="weui-cell__ft">{{courses[demandIndex].teacher}}</view>
                 </view>
                 <view class="weui-cell">
-                    <view class="weui-cell__bd">绩点</view>
+                    <view class="weui-cell__bd">学分</view>
                     <view class="weui-cell__ft">{{courses[demandIndex].credit}}</view>
                 </view>
             </view>
@@ -49,7 +49,7 @@
                     <view class="weui-cell__ft">{{courses[supplyIndex].teacher}}</view>
                 </view>
                 <view class="weui-cell">
-                    <view class="weui-cell__bd">绩点</view>
+                    <view class="weui-cell__bd">学分</view>
                     <view class="weui-cell__ft">{{courses[supplyIndex].credit}}</view>
                 </view>
             </view>

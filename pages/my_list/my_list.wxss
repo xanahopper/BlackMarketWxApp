@@ -1,1 +1,172 @@
 /* my_list.wxss */
+
+.page__hd {
+    padding: 0;
+}
+
+.page__bd {
+    padding-bottom: 0;
+}
+
+.timeline{
+    padding-top: 56px;
+}
+
+.weui-form-preview{
+    margin-bottom: 25px;
+}
+
+.weui-loadmore__tips_in-line {
+    background-color: #F8F8F8;
+}
+
+.supply-style {
+    color: #E64A19;
+}
+
+.demand-style {
+    color: #388e3c;
+}
+
+.bm-top-fixed-container {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+.bm-top-bar {
+    height: 40px;
+    background-color: #efefef;
+    border-bottom: 1px solid #d6d6d6;
+    padding-left: 16px;
+    padding-right: 8px;
+    display: flex;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+}
+
+.bm-top-button {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 48rpx;
+}
+
+.bm-top-button__text {
+    font-size: 10pt;
+}
+
+.bm-top-button__icon {
+    height: 16px;
+    width: 16px;
+}
+
+.bm-top-button__expand {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 0;
+}
+
+.bm-top-container {
+    background-color: #efefef;
+    border-bottom: 1px solid #d6d6d6;
+    padding: 0 16px;
+}
+
+.bm-top-sort-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.bm-top-sort-item {
+    display: flex;
+    height: 36px;
+    align-items: center;
+}
+
+.bm-top-sort-item__text {
+    font-size: 10pt;
+    flex-grow: 1;
+}
+
+.bm-top-sort-item__icon {
+    width: 16px;
+    height: 16px;
+}
+
+.bm-top-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 80;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+text.active {
+    color: #576b95;
+}
+
+.bm-bottom-fixed-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.bm-top-filter-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.bm-top-filter-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.bm-top-filter-column {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.bm-top-cells:after {
+    border: 0;
+}
+
+.bm-top-cells:before {
+    border: 0;
+}
+
+.weui-btn-area {
+    margin-bottom: 1.17em;
+}
+
+.bm-filter-cell {
+    padding: 5px 10px;
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+}
+
+.bm-filter-cell__hd {
+    flex: 1;
+}
+
+.bm-filter-cell__bd {
+    text-align: right;
+    color: #999999;
+}
+
+.bm-filter-input {
+    height: 12px;
+    background-color: #fff;
+    border: 1px solid #999999;
+    padding: 0 5px;
+    margin-left: 5px;
+    width: 80px;
+
+}

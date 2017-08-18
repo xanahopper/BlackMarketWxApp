@@ -155,6 +155,8 @@ Page({
       this.showTopTips('请在需求和提供中至少选择一种')
     } else if (this.data.supplyIndex === this.data.demandIndex) {
       this.showTopTips('需求和提供不能相同')
+    } else if (this.data.message.trim().length === 0) {
+      this.showTopTips('留言不能为空')
     } else {
       return true
     }
@@ -214,7 +216,7 @@ Page({
               })
               .catch(err => {
                 if (err.type && err.type === ErrorTypes.Response) {
-                  that.showTopTips(err.data.data.errmsg)
+                  wxw.showMessage(err.data.data.errmsg, '错误')
                 }
               })
           }
@@ -249,7 +251,7 @@ Page({
         })
         .catch(err => {
           if (err.type && err.type === ErrorTypes.Response) {
-            that.showTopTips(err.data.data.errmsg)
+            this.showMessage(err.data.data.errmsg, '错误')
           }
         })
     }

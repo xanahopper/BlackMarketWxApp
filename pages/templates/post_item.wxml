@@ -1,0 +1,55 @@
+<template name="post_item">
+    <view class="weui-form-preview">
+        <view class="weui-form-preview__hd">
+            <view class="weui-form-preview__item" wx:if="{{item.supply && item.supply.course_id != 0}}">
+                <view class="weui-form-preview__label">供</view>
+                <view class="weui-form-preview__value_in-hd supply-style">{{ courses[item.supply.course_id].name
+                    }}
+                </view>
+            </view>
+            <view class="weui-form-preview__item" wx:if="{{item.demand && item.demand.course_id != 0}}">
+                <view class="weui-form-preview__label">求</view>
+                <view class="weui-form-preview__value_in-hd demand-style">{{ courses[item.demand.course_id].name
+                    }}
+                </view>
+            </view>
+        </view>
+        <view class="weui-form-preview__bd">
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">发布人</view>
+                <view class="weui-form-preview__value">{{ item.student_id.username }}</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">发布日期</view>
+                <view class="weui-form-preview__value">{{ item.create_time }}</view>
+            </view>
+            <view class="weui-form-preview__item" wx:if="{{item.create_time != item.update_time}}">
+                <view class="weui-form-preview__label">更新日期</view>
+                <view class="weui-form-preview__value">{{ item.update_time }}</view>
+            </view>
+            <view class="weui-form-preview__item" wx:if="{{item.message}}">
+                <view class="weui-form-preview__label">留言</view>
+                <view class="weui-form-preview__value">{{ item.message }}</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">状态</view>
+                <view class="weui-form-preview__value">
+                    <block wx:if="{{item.status == 0}}">待交易</block>
+                    <block wx:elif="{{item.status == 1}}">交易完成</block>
+                    <block wx:elif="{{item.status == 2}}">交易关闭</block>
+                    <block wx:else>未知</block>
+                </view>
+            </view>
+        </view>
+        <view class="weui-form-preview__ft">
+            <view class="weui-form-preview__btn weui-form-preview__btn_default" data-id="{{item.id}}"
+                  hover-class="weui-form-preview__btn_active" bindtap="changePostStatus"
+                  wx:if="{{item.status==0 && item.student_id.id == bindInfo.id}}">关闭交易
+            </view>
+            <navigator url="../post/post?id={{item.id}}"
+                       class="weui-form-preview__btn weui-form-preview__btn_primary"
+                       hover-class="weui-form-preview__btn_active">查看
+            </navigator>
+        </view>
+    </view>
+</template>

@@ -65,14 +65,14 @@
                 <view class="weui-form-preview__hd">
                     <view class="weui-form-preview__item" wx:if="{{item.supply && item.supply.course_id != 0}}">
                         <view class="weui-form-preview__label">供</view>
-                        <view class="weui-form-preview__value_in-hd supply-style">{{ courses[item.supply.course_id].name
-                            }}
+                        <view class="weui-form-preview__value_in-hd supply-style">
+                            {{ courses[item.supply.course_id].name}}
                         </view>
                     </view>
                     <view class="weui-form-preview__item" wx:if="{{item.demand && item.demand.course_id != 0}}">
                         <view class="weui-form-preview__label">求</view>
-                        <view class="weui-form-preview__value_in-hd demand-style">{{ courses[item.demand.course_id].name
-                            }}
+                        <view class="weui-form-preview__value_in-hd demand-style">
+                            {{ courses[item.demand.course_id].name}}
                         </view>
                     </view>
                 </view>
@@ -110,31 +110,6 @@
                     </navigator>
                 </view>
             </view>
-        </view>
-        <view class="search-hint" wx:if="{{inputShowed && inputVal.length == 0}}">
-            <text>搜索结果</text>
-        </view>
-        <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
-            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">
-                    <view>实时搜索文本</view>
-                </view>
-            </navigator>
-            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">
-                    <view>实时搜索文本</view>
-                </view>
-            </navigator>
-            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">
-                    <view>实时搜索文本</view>
-                </view>
-            </navigator>
-            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">
-                    <view>实时搜索文本</view>
-                </view>
-            </navigator>
         </view>
         <block>
             <view class="weui-loadmore" wx:if="{{!inited || hasMore && loading}}">

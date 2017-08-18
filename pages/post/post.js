@@ -17,25 +17,35 @@ Page({
     courses: {},
     types: ['双学位', '元培PPE', '其他'],
     bindInfo: null,
-    init: true
+    init: true,
+    hasViewedContract: false,
+
+    showTopTips: false,
+    TopTips: '出现错误',
+
+    viewCount: 0
   },
 
   refreshPost(id) {
     let that = this
-    wx.showNavigationBarLoading()
+    // wx.showNavigationBarLoading()
+    wx.showLoading()
     wxw.getPost(app.globalData.session, id)
       .then(res => {
-        app.processData([res.data], null, true)
+        app.processData([res.data.post], null, true)
         that.setData({
-          post: res.data
+          post: res.data.post,
+          hasViewedContract: res.data.has_viewed_contact || res.data.post.student_id.id === app.globalData.bindInfo.id,
         })
-        wx.hideNavigationBarLoading()
+        // wx.hideNavigationBarLoading()
+        wx.hideLoading()
       })
       .catch(err => {
         this.setData({
           err: 2
         })
-        wx.hideNavigationBarLoading()
+        // wx.hideNavigationBarLoading()
+        wx.hideLoading()
       })
   },
 
@@ -63,6 +73,13 @@ Page({
           courses,
         })
       })
+
+      wxw.getViewCount(app.globalData.session)
+        .then(res => {
+          that.setData({
+            viewCount: res.data.viewcount
+          })
+        })
     }
   },
 
@@ -119,40 +136,101 @@ Page({
 
   },
 
+  showTopTips: function (tip) {
+    let that = this
+    this.setData({
+      TopTips: tip || that.data.TopTips,
+      showTopTips: true,
+    })
+    setTimeout(function () {
+      that.setData({
+        showTopTips: false,
+      })
+    }, 3000)
+  },
+
   bindDialMobile(e) {
     let that = this
-    wx.showModal({
-      title: '拨打电话',
-      content: '你确定要拨打"' + this.data.post.student_id.username + '"的电话"' + this.data.post.mobile + '"么？',
-      confirmText: '确定',
-      cancelText: '取消',
-      success(res) {
-        if (res.confirm) {
-          wx.makePhoneCall({
-            phoneNumber: that.data.post.mobile
-          })
+    if (this.data.hasViewedContract) {
+      wx.showModal({
+        title: '拨打电话',
+        content: '你确定要拨打"' + this.data.post.student_id.username + '"的电话"' + this.data.post.mobile + '"么？',
+        confirmText: '确定',
+        cancelText: '取消',
+        success(res) {
+          if (res.confirm) {
+            wx.makePhoneCall({
+              phoneNumber: that.data.post.mobile
+            })
+          }
         }
-      }
-    })
+      })
+    } else {
+      this.viewContract()
+    }
   },
 
   bindCopyWechat(e) {
-    wx.setClipboardData({
-      data: this.data.post.wechat,
-      success(res) {
-        wx.showToast({
-          title: '微信已复制',
-          icon: 'success',
-          duration: 1000
-        })
-      }
-    })
+    if (this.data.hasViewedContract) {
+      wx.setClipboardData({
+        data: this.data.post.wechat,
+        success(res) {
+          wx.showToast({
+            title: '微信已复制',
+            icon: 'success',
+            duration: 1000
+          })
+        }
+      })
+    } else {
+      this.viewContract()
+    }
+  },
+
+  viewContract() {
+    let that = this
+    if (!this.data.hasViewedContract) {
+      wx.showModal({
+        title: '查看联系方式',
+        content: '你还有' + this.data.viewCount + '次查看机会，确定要查看"' + this.data.post.student_id.username + '"的联系方式么？',
+        confirmText: '确定',
+        cancelText: '取消',
+        success(res) {
+          if (res.confirm) {
+            wx.showNavigationBarLoading()
+            wxw.viewPostContract(app.globalData.session, that.data.post_id)
+              .then(res => {
+                console.log(res)
+                that.setData({
+                  hasViewedContract: true
+                })
+                wx.hideNavigationBarLoading()
+              })
+              .catch(err => {
+                wx.hideNavigationBarLoading()
+                if (err.type && err.type === ErrorTypes.Response) {
+                  wxw.showMessage(err.data.errmsg)
+                } else {
+                  wxw.showMessage('出现错误，请重新尝试')
+                }
+              })
+          }
+        }
+      })
+    } else {
+      wx.showModal({
+        title: '查看联系方式',
+        content: '你已经查看过这个供求信息发布人的联系方式了',
+        showCancel: false
+      })
+    }
+
   },
 
   changePostStatus(e) {
     let that = this
     wx.showActionSheet({
-      itemList: ['交易完成', '交易取消'],
+      itemList: ['完成交易', '放弃交易'],
       success(res) {
         if (!res.cancel) {
           let status = 0
@@ -161,13 +239,14 @@ Page({
           else if (res.tapIndex === 1) status = 2
           else status = 0
 
-          wxw.request(wxw.urls.postUrl + that.data.post.id, {
-            status
-          }, wxw.getSessionHeader(app.globalData.session), 'json', 'PUT')
+          wxw.putPostStatus(app.globalData.session, that.data.post.id, status)
             .then(res => {
               console.log(res)
               that.refreshPost(that.data.post.id)
               app.globalData.needRefresh = true
+            })
+            .catch(err => {
+              wxw.showMessage('关闭失败，请重新尝试')
             })
         }
       }
