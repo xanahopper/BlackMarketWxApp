@@ -105,7 +105,7 @@
         <!-- 发布状态 结束 -->
 
         <view class="weui-btn-area">
-            <button class="weui-btn" type="primary" bindtap="viewOrigin">查看原帖</button>
+            <button class="weui-btn" type="primary" bindtap="viewOrigin">查看原帖获取联系方式</button>
         </view>
     </view>
 </view>

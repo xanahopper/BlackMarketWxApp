@@ -131,7 +131,7 @@ Page({
               setTimeout(() => {
                 if (that.data.redirect) {
                   wx.redirectTo({
-                    url: that.data.redirect
+                    url: decodeURIComponent(that.data.redirect)
                   })
                 } else {
                   wx.switchTab({

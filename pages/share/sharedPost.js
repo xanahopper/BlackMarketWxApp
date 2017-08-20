@@ -117,12 +117,13 @@ Page({
 
   viewOrigin(e) {
     wx.showLoading()
-    app.checkLogin()
+    let url = '/pages/post/post?id=' + this.data.post.id
+    app.checkLogin(url)
       .then(res => {
         wx.hideLoading()
         if (res && res.userInfo && res.bindInfo) {
           wx.redirectTo({
-            url: '/pages/post/post?id=' + this.data.post.id
+            url: url
           })
         }
       })

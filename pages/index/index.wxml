@@ -73,13 +73,13 @@
         <view class="timeline" wx:if="{{!inputShowed || !filterShowed}}">
             <view class="weui-form-preview" wx:for="{{posts}}" wx:key="id">
                 <view class="weui-form-preview__hd">
-                    <view class="weui-form-preview__item" wx:if="{{item.supply && item.supply.course_id != 0}}">
+                    <view class="weui-form-preview__item" wx:if="{{item.supply.course}}">
                         <view class="weui-form-preview__label">供</view>
                         <view class="weui-form-preview__value_in-hd {{ item.status == 0 ? 'supply-style' : 'close-style' }}">
                             {{ courses[item.supply.course.id].name}}
                         </view>
                     </view>
-                    <view class="weui-form-preview__item" wx:if="{{item.demand && item.demand.course_id != 0}}">
+                    <view class="weui-form-preview__item" wx:if="{{item.demand.course}}">
                         <view class="weui-form-preview__label">求</view>
                         <view class="weui-form-preview__value_in-hd {{ item.status == 0 ? 'demand-style' : 'close-style' }}">
                             {{ courses[item.demand.course.id].name}}
