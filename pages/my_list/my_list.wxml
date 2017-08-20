@@ -28,7 +28,8 @@
                         <view class="weui-cell__bd">
                             <picker bindchange="bindSupplyChange" value="{{supplyIndex}}" range="{{courseNames}}"
                                     wx:if="{{!edit}}">
-                                <view class="weui-select weui-select_in-select-after">{{courses[supplyIndex].name}}</view>
+                                <view class="weui-select weui-select_in-select-after">{{courses[supplyIndex].name}}
+                                </view>
                             </picker>
                         </view>
                     </view>
@@ -40,14 +41,25 @@
                         <view class="weui-cell__bd">
                             <picker bindchange="bindDemandChange" value="{{demandIndex}}" range="{{courseNames}}"
                                     wx:if="{{!edit}}">
-                                <view class="weui-select weui-select_in-select-after">{{courses[demandIndex].name}}</view>
+                                <view class="weui-select weui-select_in-select-after">{{courses[demandIndex].name}}
+                                </view>
                             </picker>
+                        </view>
+                    </view>
+
+                    <view class="weui-cell weui-cell_switch">
+                        <view class="weui-cell__bd">
+                            <view class="weui-label">只看未关闭</view>
+                        </view>
+                        <view class="weui-cell__ft">
+                            <switch checked="{{onlyOpen}}" bindchange="bindOnlyOpen"/>
                         </view>
                     </view>
                 </view>
 
                 <view class="weui-btn-area">
-                    <button class="weui-btn" type="normal" bindtap="clearFilter">清空</button>
+                    <button class="weui-btn" type="normal" bindtap="clearFilter">重置</button>
+                    <button class="weui-btn" type="primary" bindtap="comfirmFilter">确定</button>
                 </view>
             </view>
             <view class="bm-top-container bm-top-sort-container" wx:if="{{sortShowed}}">
@@ -81,7 +93,7 @@
                 <view class="weui-form-preview__bd">
                     <view class="weui-form-preview__item">
                         <view class="weui-form-preview__label">发布人</view>
-                        <view class="weui-form-preview__value">{{ item.student_id.username }}</view>
+                        <view class="weui-form-preview__value">{{ item.student.username }}</view>
                     </view>
                     <view class="weui-form-preview__item">
                         <view class="weui-form-preview__label">发布日期</view>
@@ -107,8 +119,8 @@
                 </view>
                 <view class="weui-form-preview__ft">
                     <view class="weui-form-preview__btn weui-form-preview__btn_default" data-id="{{item.id}}"
-                               hover-class="weui-form-preview__btn_active" bindtap="changePostStatus"
-                               wx:if="{{item.status==0}}">关闭交易
+                          hover-class="weui-form-preview__btn_active" bindtap="changePostStatus"
+                          wx:if="{{item.status==0}}">关闭交易
                     </view>
                     <navigator url="../post/post?id={{item.id}}"
                                class="weui-form-preview__btn weui-form-preview__btn_primary"

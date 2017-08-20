@@ -66,6 +66,10 @@
   color: #388e3c;
 }
 
+.close-style {
+  color: #888888;
+}
+
 .bm-top-fixed-container {
   position: fixed;
   width: 100%;

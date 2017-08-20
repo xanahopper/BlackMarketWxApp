@@ -18,14 +18,16 @@
                         <text wx:if="{{edit}}" class="weui-label">{{courses[demandIndex].name}}</text>
                     </view>
                 </view>
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">授课教师</view>
-                    <view class="weui-cell__ft">{{courses[demandIndex].teacher}}</view>
-                </view>
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">学分</view>
-                    <view class="weui-cell__ft">{{courses[demandIndex].credit}}</view>
-                </view>
+                <block wx:if="{{demandIndex > 0}}">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">授课教师</view>
+                        <view class="weui-cell__ft">{{courses[demandIndex].teacher}}</view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">学分</view>
+                        <view class="weui-cell__ft">{{courses[demandIndex].credit}}</view>
+                    </view>
+                </block>
             </view>
         </block>
         <!-- weui-cells -->
@@ -44,14 +46,16 @@
                         <text wx:if="{{edit}}" class="weui-label">{{courses[supplyIndex].name}}</text>
                     </view>
                 </view>
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">授课教师</view>
-                    <view class="weui-cell__ft">{{courses[supplyIndex].teacher}}</view>
-                </view>
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">学分</view>
-                    <view class="weui-cell__ft">{{courses[supplyIndex].credit}}</view>
-                </view>
+                <block wx:if="{{supplyIndex > 0}}">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">授课教师</view>
+                        <view class="weui-cell__ft">{{courses[supplyIndex].teacher}}</view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">学分</view>
+                        <view class="weui-cell__ft">{{courses[supplyIndex].credit}}</view>
+                    </view>
+                </block>
             </view>
         </block>
         <!-- weui-cells -->
@@ -59,10 +63,10 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_switch">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">显示手机</view>
+                    <view class="weui-label">手机</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <text wx:if="{{useMobile}}">{{bindInfo.mobile}}</text>
+                    <text class="{{!useMobile ? 'secondary-style' : ''}}">{{bindInfo.mobile}}</text>
                 </view>
                 <view class="weui-cell__ft">
                     <switch checked="{{useMobile}}" bindchange="bindUseMobileChange"/>

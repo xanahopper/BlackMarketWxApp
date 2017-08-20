@@ -22,7 +22,8 @@ Page({
     session: null,
 
     verifyCodeCountdown: 0,
-    edit: false
+    edit: false,
+    redirect: null
   },
 
   /**
@@ -31,6 +32,11 @@ Page({
   onLoad: function (options) {
     console.log('Auth onLoad')
     let that = this
+    if (options.redirect) {
+      this.setData({
+        redirect: options.redirect
+      })
+    }
     if (options.edit && options.edit == "1") {
       this.setData({
         edit: true,
@@ -104,6 +110,7 @@ Page({
   },
 
   submitBindPhone: function () {
+    let that = this
     if (this.data.isAgree && this.data.phoneNum !== null && this.data.verifyCode !== null) {
       let data = {
         mobile: this.data.phoneNum,
@@ -122,10 +129,17 @@ Page({
             mask: true,
             complete: function () {
               setTimeout(() => {
-                wx.switchTab({
-                  url: '/pages/index/index'
-                })
+                if (that.data.redirect) {
+                  wx.redirectTo({
+                    url: that.data.redirect
+                  })
+                } else {
+                  wx.switchTab({
+                    url: '/pages/index/index'
+                  })
+                }
               }, 2000)
+
             }
           })
         })
@@ -147,13 +161,21 @@ Page({
         wxw.getVerifyCode(this.data.session, this.data.phoneNum)
           .then(res => {
             console.log(res)
-            that.setData({ verifyCodeCountdown: 60 })
+            let data = { verifyCodeCountdown: 60 }
+            if (res.data.code && res.data.msg) {
+              wxw.showMessage(res.data.msg)
+              data.verifyCode = res.data.code
+            }
+            that.setData(data)
             that.countdown(that)
           })
           .catch(err => {
             if (err.type && err.type === ErrorTypes.Response) {
-              if (err.data.errMsg) {
-                wxw.showMessage(err.data.errMsg)
+              console.log(err)
+              if (err.data.data.errMsg) {
+                wxw.showMessage(err.data.data.errMsg)
+              } else {
+                wxw.showMessage('获取验证码时出现错误，请重试')
               }
             }
           })

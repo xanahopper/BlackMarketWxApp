@@ -42,10 +42,20 @@
                             </picker>
                         </view>
                     </view>
+
+                    <view class="weui-cell weui-cell_switch">
+                        <view class="weui-cell__bd">
+                            <view class="weui-label">只看未关闭</view>
+                        </view>
+                        <view class="weui-cell__ft">
+                            <switch checked="{{onlyOpen}}" bindchange="bindOnlyOpen"/>
+                        </view>
+                    </view>
                 </view>
 
                 <view class="weui-btn-area">
-                    <button class="weui-btn" type="normal" bindtap="clearFilter">清空</button>
+                    <button class="weui-btn" type="normal" bindtap="clearFilter">重置</button>
+                    <button class="weui-btn" type="primary" bindtap="comfirmFilter">确定</button>
                 </view>
             </view>
             <view class="bm-top-container bm-top-sort-container" wx:if="{{sortShowed}}">
@@ -65,13 +75,13 @@
                 <view class="weui-form-preview__hd">
                     <view class="weui-form-preview__item" wx:if="{{item.supply && item.supply.course_id != 0}}">
                         <view class="weui-form-preview__label">供</view>
-                        <view class="weui-form-preview__value_in-hd supply-style">
+                        <view class="weui-form-preview__value_in-hd {{ item.status == 0 ? 'supply-style' : 'close-style' }}">
                             {{ courses[item.supply.course_id].name}}
                         </view>
                     </view>
                     <view class="weui-form-preview__item" wx:if="{{item.demand && item.demand.course_id != 0}}">
                         <view class="weui-form-preview__label">求</view>
-                        <view class="weui-form-preview__value_in-hd demand-style">
+                        <view class="weui-form-preview__value_in-hd {{ item.status == 0 ? 'demand-style' : 'close-style' }}">
                             {{ courses[item.demand.course_id].name}}
                         </view>
                     </view>
@@ -79,7 +89,7 @@
                 <view class="weui-form-preview__bd">
                     <view class="weui-form-preview__item">
                         <view class="weui-form-preview__label">发布人</view>
-                        <view class="weui-form-preview__value">{{ item.student_id.username }}</view>
+                        <view class="weui-form-preview__value">{{ item.student.username }}</view>
                     </view>
                     <view class="weui-form-preview__item">
                         <view class="weui-form-preview__label">发布日期</view>

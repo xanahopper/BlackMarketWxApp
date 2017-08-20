@@ -35,7 +35,7 @@ Page({
         app.processData([res.data.post], null, true)
         that.setData({
           post: res.data.post,
-          hasViewedContract: res.data.has_viewed_contact || res.data.post.student_id.id === app.globalData.bindInfo.id,
+          hasViewedContract: res.data.has_viewed_contact || res.data.post.student.id === app.globalData.bindInfo.id,
         })
         // wx.hideNavigationBarLoading()
         wx.hideLoading()
@@ -133,7 +133,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '黑市交易',
+      desc: '快来和我换课吧',
+      path: '/pages/share/sharedPost?id=' + encodeURIComponent(this.data.post.fuzzy_id)
+    }
   },
 
   showTopTips: function (tip) {
@@ -154,7 +158,7 @@ Page({
     if (this.data.hasViewedContract) {
       wx.showModal({
         title: '拨打电话',
-        content: '你确定要拨打"' + this.data.post.student_id.username + '"的电话"' + this.data.post.mobile + '"么？',
+        content: '你确定要拨打"' + this.data.post.student.username + '"的电话"' + this.data.post.mobile + '"么？',
         confirmText: '确定',
         cancelText: '取消',
         success(res) {
@@ -176,7 +180,7 @@ Page({
         data: this.data.post.wechat,
         success(res) {
           wx.showToast({
-            title: '微信已复制',
+            title: '微信号已复制',
             icon: 'success',
             duration: 1000
           })
@@ -192,7 +196,7 @@ Page({
     if (!this.data.hasViewedContract) {
       wx.showModal({
         title: '查看联系方式',
-        content: '你还有' + this.data.viewCount + '次查看机会，确定要查看"' + this.data.post.student_id.username + '"的联系方式么？',
+        content: '你还有' + this.data.viewCount + '次查看机会，确定要查看"' + this.data.post.student.username + '"的联系方式么？',
         confirmText: '确定',
         cancelText: '取消',
         success(res) {

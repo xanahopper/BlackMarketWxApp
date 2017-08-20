@@ -25,9 +25,11 @@ Page({
 
     supplyIndex: 0,
     demandIndex: 0,
+    onlyOpen: true,
 
     filterSupply: 0,
-    filterDemand: 0
+    filterDemand: 0,
+    filterOnlyOpen: true,
   },
 
   refreshPostList() {
@@ -94,7 +96,7 @@ Page({
   },
 
   onShow() {
-    if (app.globalData.needRefresh) {
+    if (app.globalData.needRefresh || !this.data.inited) {
       app.globalData.needRefresh = false
       this.refreshPostList()
     }
@@ -151,6 +153,12 @@ Page({
     let data = {
       filterShowed: false
     }
+    this.setData(data)
+  },
+  comfirmFilter(e) {
+    let data = {
+      filterShowed: false
+    }
     let filterChanged = false
     if (this.data.supplyIndex !== this.data.filterSupply) {
       data.filterSupply = this.data.supplyIndex
@@ -158,6 +166,10 @@ Page({
     }
     if (this.data.demandIndex !== this.data.filterDemand) {
       data.filterDemand = this.data.demandIndex
+      filterChanged = true
+    }
+    if (this.data.onlyOpen !== this.data.filterOnlyOpen) {
+      data.filterOnlyOpen = this.data.onlyOpen
       filterChanged = true
     }
     this.setData(data)
@@ -184,9 +196,15 @@ Page({
 
   },
   toggleFilter(e) {
-    this.setData({
+    let data = {
       filterShowed: !this.data.filterShowed
-    })
+    }
+    if (data.filterShowed) {
+      data.demandIndex = this.data.filterDemand
+      data.supplyIndex = this.data.filterSupply
+      data.onlyOpen = this.data.filterOnlyOpen
+    }
+    this.setData(data)
   },
   toggleTimeSort(e) {
     let state = 0
@@ -225,9 +243,20 @@ Page({
   },
 
   clearFilter(e) {
+    let filterChange = (this.data.filterSupply !== 0  || this.data.filterDemand !== 0)
     this.setData({
       supplyIndex: 0,
-      demandIndex: 0
+      demandIndex: 0,
+      filterSupply: 0,
+      filterDemand: 0,
+      filterShowed: false
+    })
+    if (filterChange) this.refreshPostList()
+  },
+
+  bindOnlyOpen(e) {
+    this.setData({
+      onlyOpen: e.detail.value
     })
   }
 })

@@ -7,3 +7,7 @@
 .text-warn {
     color: red;
 }
+
+.secondary-style {
+    color: #888888;
+}

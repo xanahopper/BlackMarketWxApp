@@ -53,7 +53,7 @@ App({
     })
   },
 
-  checkLogin: function () {
+  checkLogin(url) {
     let that = this
     console.log('Start check login')
     return wxw.checkSession()
@@ -135,7 +135,7 @@ App({
               break
             case ErrorTypes.BindInfo:
               wx.redirectTo({
-                url: '/pages/auth/auth'
+                url: '/pages/auth/auth' + (url ? ('?redirect=' + encodeURIComponent(url)) : '')
               })
           }
         } else {

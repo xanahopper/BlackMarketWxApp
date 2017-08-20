@@ -68,11 +68,11 @@ Page({
             edit: true,
             post_id: res.id
           }
-          if (res.demand.course_id !== 0) data.demandIndex = res.demand.course_id
-          if (res.supply.course_id !== 0) data.supplyIndex = res.supply.course_id
-          data.useMobile = (res.switch === 1)
-          data.wechatNo = res.wechat
-          data.message = res.message
+          if (res.post.demand.course_id !== 0) data.demandIndex = res.post.demand.course_id
+          if (res.post.supply.course_id !== 0) data.supplyIndex = res.post.supply.course_id
+          data.useMobile = (res.post.switch === 1)
+          data.wechatNo = res.post.wechat
+          data.message = res.post.message
           data.messageLength = data.message.length
           that.setData(data)
         })
@@ -121,13 +121,6 @@ Page({
 
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
   showTopTips: function (tip) {
     let that = this
     this.setData({
@@ -166,7 +159,6 @@ Page({
   /**
    * 提交需求信息
    * {
-     *   student_id: <id>,
      *   supply: supplyIndex,
      *   demand: demandIndex,
      *   switch: useMobile,

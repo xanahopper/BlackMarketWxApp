@@ -1,0 +1,21 @@
+/* sharedPost.wxss */
+
+.page__bd {
+    padding-top: 20px;
+}
+
+.supply-style {
+    color: #E64A19;
+}
+
+.demand-style {
+    color: #388e3c;
+}
+
+.weui-form-preview {
+    margin-bottom: 25px;
+}
+
+.weui-form-preview_last {
+    margin-bottom: 0;
+}

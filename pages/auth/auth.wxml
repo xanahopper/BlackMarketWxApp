@@ -54,7 +54,7 @@
                     <view class="weui-label">验证码</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" type="number" placeholder="请输入验证码" confirm-type="done" bindinput="bindVerifyInput" />
+                    <input class="weui-input" type="number" placeholder="请输入验证码" confirm-type="done" bindinput="bindVerifyInput" value="{{verifyCode}}" />
                 </view>
                 <view class="weui-cell__ft">
                     <view class="weui-vcode-btn" bindtap="requestVerifyCode">{{verifyCodeCountdown == 0 ? '获取验证码' : verifyCodeCountdown + '秒'}}</view>
@@ -70,7 +70,7 @@
                     <view class="weui-agree__checkbox-icon">
                         <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
                     </view>
-                    阅读并同意<navigator url="" class="weui-agree__link">《相关条款》</navigator>
+                    阅读并同意<navigator url="../license/license" class="weui-agree__link">《使用协议》</navigator>
                 </view>
             </label>
         </checkbox-group>

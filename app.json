@@ -10,7 +10,9 @@
     "pages/edit_info/edit_info",
     "pages/add_post/add_post",
     "pages/post/post",
-    "pages/my_list/my_list"
+    "pages/my_list/my_list",
+    "pages/license/license",
+    "pages/share/sharedPost"
   ],
   "window": {
     "backgroundTextStyle": "dark",

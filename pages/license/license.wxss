@@ -1,0 +1,16 @@
+/* license.wxss */
+.weui-article__title {
+    font-weight: bold;
+    margin-bottom: 0.3em;
+}
+
+.bm-text__bold {
+    font-weight: bold;
+}
+
+.weui-footer{
+    margin-bottom: 0;
+}
+.weui-footer_fixed-bottom{
+    margin-bottom: 0;
+}

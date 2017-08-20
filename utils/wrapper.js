@@ -37,7 +37,9 @@ let wxw = {
     courseUrl: "https://pkublackmarket.cn/api/v1/course/",
     postUrl: "https://pkublackmarket.cn/api/v1/course/post/",
     myPostUrl: "https://pkublackmarket.cn/api/v1/student/post",
-    viewContractUrl: "https://pkublackmarket.cn/api/v1/course/post/viewcount"
+    viewContractUrl: "https://pkublackmarket.cn/api/v1/course/post/viewcount",
+
+    sharedPostUrl: "https://pkublackmarket.cn/api/v1/course/post/"
   },
 
   showMessage(msg, title) {
@@ -337,6 +339,10 @@ let wxw = {
 
   getViewCount(session) {
     return this.request(this.urls.viewContractUrl, {}, this.getSessionHeader(session))
+  },
+
+  getSharedPost(fuzzy_post_id) {
+    return this.request(this.urls.sharedPostUrl + fuzzy_post_id, {}, {})
   }
 }
 

@@ -1,6 +1,7 @@
 // my_list.js
 
 import wxw from '../../utils/wrapper'
+
 let app = getApp()
 
 Page({
@@ -24,9 +25,11 @@ Page({
 
     supplyIndex: 0,
     demandIndex: 0,
+    onlyOpen: false,
 
     filterSupply: 0,
     filterDemand: 0,
+    filterOnlyOpen: false,
 
     showTopTips: false,
     TopTips: '出现错误',
@@ -40,7 +43,7 @@ Page({
       start: 0,
       limit: this.data.limit,
       supply: this.data.filterSupply,
-      demand: this.data.filterDemand
+      demand: this.data.filterDemand,
     }
 
     wxw.getMyPost(app.globalData.session, data)
@@ -49,21 +52,21 @@ Page({
         let data = {
           start: that.data.start + res.length,
           loading: false,
-          inited: true
+          inited: true,
         }
-        data.hasMore = res.length >= that.data.limit;
+        data.hasMore = res.length >= that.data.limit
         app.processData(res)
         data.posts = res
         that.setData(data)
         wx.hideNavigationBarLoading()
         wx.stopPullDownRefresh()
         wx.pageScrollTo({
-          scrollTop: 0
+          scrollTop: 0,
         })
       })
       .catch(err => {
         that.setData({
-          loading: false
+          loading: false,
         })
         wx.stopPullDownRefresh()
       })
@@ -75,7 +78,7 @@ Page({
   onLoad: function (options) {
     let that = this;
 
-    (app.globalData.courseNames.length > 0 ? Promise.resolve({ data: app.globalData.courses}) : wxw.getCourses(app.globalData.session))
+    (app.globalData.courseNames.length > 0 ? Promise.resolve({data: app.globalData.courses}) : wxw.getCourses(app.globalData.session))
       .then(res => {
         let courses = [{
           credit: 0,
@@ -91,7 +94,7 @@ Page({
         })
         that.setData({
           courses,
-          courseNames
+          courseNames,
         })
       })
 
@@ -104,7 +107,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
@@ -128,7 +131,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
@@ -138,7 +141,7 @@ Page({
 
     let that = this
     this.setData({
-      loading: true
+      loading: true,
     })
     this.refreshPostList()
   },
@@ -157,7 +160,7 @@ Page({
         start: this.data.start,
         limit: this.data.limit,
         supply: this.data.filterSupply,
-        demand: this.data.filterDemand
+        demand: this.data.filterDemand,
       }
       wxw.getPostList(app.globalData.session, data)
         .then(res => {
@@ -175,18 +178,12 @@ Page({
         })
         .catch(err => {
           that.setData({
-            loading: false
+            loading: false,
           })
         })
     }
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  },
   toggleSort(e) {
     let that = this
     this.setData({
@@ -200,7 +197,14 @@ Page({
   },
   hideFilter() {
     let data = {
-      filterShowed: false
+      filterShowed: false,
+    }
+    this.setData(data)
+  },
+
+  comfirmFilter(e) {
+    let data = {
+      filterShowed: false,
     }
     let filterChanged = false
     if (this.data.supplyIndex !== this.data.filterSupply) {
@@ -211,11 +215,16 @@ Page({
       data.filterDemand = this.data.demandIndex
       filterChanged = true
     }
+    if (this.data.onlyOpen !== this.data.filterOnlyOpen) {
+      data.filterOnlyOpen = this.data.onlyOpen
+      filterChanged = true
+    }
     this.setData(data)
     if (filterChanged) {
       this.refreshPostList()
     }
   },
+
   cancelMask() {
     if (this.data.sortShowed)
       this.hideSort()
@@ -235,9 +244,15 @@ Page({
 
   },
   toggleFilter(e) {
-    this.setData({
-      filterShowed: !this.data.filterShowed
-    })
+    let data = {
+      filterShowed: !this.data.filterShowed,
+    }
+    if (data.filterShowed) {
+      data.demandIndex = this.data.filterDemand
+      data.supplyIndex = this.data.filterSupply
+      data.onlyOpen = this.data.filterOnlyOpen
+    }
+    this.setData(data)
   },
   toggleTimeSort(e) {
     let state = 0
@@ -257,7 +272,7 @@ Page({
     }
     this.setData({
       sortState: state,
-      order
+      order,
     })
     this.cancelMask()
     this.refreshPostList()
@@ -265,20 +280,13 @@ Page({
 
   bindDemandChange(e) {
     this.setData({
-      demandIndex: Number.parseInt(e.detail.value)
+      demandIndex: Number.parseInt(e.detail.value),
     })
   },
 
   bindSupplyChange(e) {
     this.setData({
       supplyIndex: Number.parseInt(e.detail.value),
-    })
-  },
-
-  clearFilter(e) {
-    this.setData({
-      supplyIndex: 0,
-      demandIndex: 0
     })
   },
 
@@ -318,7 +326,25 @@ Page({
               wxw.showMessage('关闭失败，请重新尝试')
             })
         }
-      }
+      },
+    })
+  },
+
+  clearFilter(e) {
+    let filterChange = (this.data.filterSupply !== 0 || this.data.filterDemand !== 0)
+    this.setData({
+      supplyIndex: 0,
+      demandIndex: 0,
+      filterSupply: 0,
+      filterDemand: 0,
+      filterShowed: false,
+    })
+    if (filterChange) this.refreshPostList()
+  },
+
+  bindOnlyOpen(e) {
+    this.setData({
+      onlyOpen: e.detail.value,
     })
   },
 })
