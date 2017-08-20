@@ -9,18 +9,18 @@
                 <view class="weui-form-preview__post">
                     <view class="weui-form-preview__label">提供课程</view>
                     <view class="weui-form-preview__value_in-hd supply-style">
-                        {{ courses[post.supply.course_id].name}}
+                        {{ courses[post.supply.course.id].name}}
                     </view>
                 </view>
             </view>
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__post">
                     <view class="weui-form-preview__label">课程教师</view>
-                    <view class="weui-form-preview__value">{{ courses[post.supply.course_id].teacher }}</view>
+                    <view class="weui-form-preview__value">{{ courses[post.supply.course.id].teacher }}</view>
                 </view>
                 <view class="weui-form-preview__post">
                     <view class="weui-form-preview__label">学分</view>
-                    <view class="weui-form-preview__value">{{ courses[post.supply.course_id].credit }}</view>
+                    <view class="weui-form-preview__value">{{ courses[post.supply.course.id].credit }}</view>
                 </view>
             </view>
 
@@ -33,18 +33,18 @@
                 <view class="weui-form-preview__post" >
                     <view class="weui-form-preview__label">需求课程</view>
                     <view class="weui-form-preview__value_in-hd demand-style">
-                        {{ courses[post.demand.course_id].name}}
+                        {{ courses[post.demand.course.id].name}}
                     </view>
                 </view>
             </view>
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__post">
                     <view class="weui-form-preview__label">课程教师</view>
-                    <view class="weui-form-preview__value">{{ courses[post.demand.course_id].teacher }}</view>
+                    <view class="weui-form-preview__value">{{ courses[post.demand.course.id].teacher }}</view>
                 </view>
                 <view class="weui-form-preview__post">
                     <view class="weui-form-preview__label">学分</view>
-                    <view class="weui-form-preview__value">{{ courses[post.demand.course_id].credit }}</view>
+                    <view class="weui-form-preview__value">{{ courses[post.demand.course.id].credit }}</view>
                 </view>
             </view>
 

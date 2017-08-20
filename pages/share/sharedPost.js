@@ -122,7 +122,7 @@ Page({
         wx.hideLoading()
         if (res && res.userInfo && res.bindInfo) {
           wx.redirectTo({
-            url: '/pages/post/post?id=' + this.post.id
+            url: '/pages/post/post?id=' + this.data.post.id
           })
         }
       })
