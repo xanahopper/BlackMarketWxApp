@@ -1,5 +1,8 @@
 <view class="container">
-  <view class="textContainer">
-    <text class="textStyle">缺一个Splash界面，回头再说</text>
-  </view>
+    <view class="textContainer">
+        <view class="bm-splash-icon-container">
+            <image src="/images/favicon.png" mode="aspectFit" class="bm-splash-icon"></image>
+        </view>
+        <text class="textStyle">想一句话吧，如果不需要，直接删掉好了</text>
+    </view>
 </view>

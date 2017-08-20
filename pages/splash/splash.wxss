@@ -15,5 +15,17 @@
 }
 
 .textContainer {
-  margin-top: 200px;
+  margin-top: 50px;
+}
+
+.bm-splash-icon-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.bm-splash-icon {
+  width: 128px;
+  height: 128px;
 }
