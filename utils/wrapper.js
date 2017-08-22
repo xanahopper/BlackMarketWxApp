@@ -15,6 +15,7 @@ import {
   ErrorTypes,
 } from 'exception'
 
+let baseUrl = "https://dev.pkublackmarket.cn"
 
 let wxw = {
   keys: {
@@ -26,20 +27,21 @@ let wxw = {
   headerKeys: {
     session: 'X-User-Session-Key'
   },
+  
 
   urls: {
-    code2sessionUrl: "https://pkublackmarket.cn/api/v1/wechat/jscode2session",
-    checkSessionUrl: "https://pkublackmarket.cn/api/v1/wechat/check_session",
-    uploadUserInfoUrl: "https://pkublackmarket.cn/api/v1/wechat/user",
-    studentInfoUrl: "https://pkublackmarket.cn/api/v1/student/",
-    verifyCodeUrl: "https://pkublackmarket.cn/api/v1/student/register",
+    code2sessionUrl: baseUrl + "/api/v1/wechat/jscode2session",
+    checkSessionUrl: baseUrl + "/api/v1/wechat/check_session",
+    uploadUserInfoUrl: baseUrl + "/api/v1/wechat/user",
+    studentInfoUrl: baseUrl + "/api/v1/student/",
+    verifyCodeUrl: baseUrl + "/api/v1/student/register",
 
-    courseUrl: "https://pkublackmarket.cn/api/v1/course/",
-    postUrl: "https://pkublackmarket.cn/api/v1/course/post/",
-    myPostUrl: "https://pkublackmarket.cn/api/v1/student/post",
-    viewContractUrl: "https://pkublackmarket.cn/api/v1/course/post/viewcount",
+    courseUrl: baseUrl + "/api/v1/course/",
+    postUrl: baseUrl + "/api/v1/course/post/",
+    myPostUrl: baseUrl + "/api/v1/student/post",
+    viewContractUrl: baseUrl + "/api/v1/course/post/viewcount",
 
-    sharedPostUrl: "https://pkublackmarket.cn/api/v1/course/post/"
+    sharedPostUrl: baseUrl + "/api/v1/course/post/"
   },
 
   showMessage(msg, title) {

@@ -2,7 +2,6 @@
   "pages": [
     "pages/splash/splash",
     "pages/index/index",
-    "pages/logs/logs",
     "pages/auth/auth",
     "pages/mine/mine",
     "pages/no_auth/no_auth",
