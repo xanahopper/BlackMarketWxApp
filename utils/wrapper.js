@@ -308,8 +308,8 @@ let wxw = {
     return this.request(this.urls.courseUrl, {}, this.getSessionHeader(session))
   },
   
-  getPostList(session, order = 0, start = 0, limit = 10, supply = 0, demand = 0) {
-    return this.request(this.urls.postUrl, {order, start, limit, supply, demand}, this.getSessionHeader(session),
+  getPostList(session, order = 0, start = 0, limit = 10, supply = 0, demand = 0, closed = 1) {
+    return this.request(this.urls.postUrl, {order, start, limit, supply, demand, closed}, this.getSessionHeader(session),
       'form')
   },
 

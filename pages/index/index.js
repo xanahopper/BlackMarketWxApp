@@ -36,7 +36,7 @@ Page({
     let that = this
     wx.showNavigationBarLoading()
     wxw.getPostList(app.globalData.session, this.data.order, 0, this.data.limit,
-      this.data.filterSupply, this.data.filterDemand)
+      this.data.filterSupply, this.data.filterDemand, this.data.filterOnlyOpen ? 0 : 1)
       .then(res => {
         console.log(res.data)
         let data = {

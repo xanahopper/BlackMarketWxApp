@@ -44,6 +44,7 @@ Page({
       limit: this.data.limit,
       supply: this.data.filterSupply,
       demand: this.data.filterDemand,
+      closed: this.data.filterOnlyOpen ? 0 : 1
     }
 
     wxw.getMyPost(app.globalData.session, data)
