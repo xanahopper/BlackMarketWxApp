@@ -28,19 +28,58 @@
             </view>
 
             <view class="weui-article__section">
-                <view class="weui-article__title">二、关于本服务</view>
+                <view class="weui-article__title">二、关于本平台</view>
                 <view class="weui-article__section">
-                    <view class="weui-article__h3">2.1 本服务的内容</view>
+                    <view class="weui-article__h3">2.1 服务内容</view>
                     <view class="weui-article__p">
-                        本服务内容是指开发者想用户提供的小程序，为用户提供包括但不限于课程交换信息，联系方式沟通及留言等服务（以下简称"本服务"）
+                        本平台的服务内容是指开发者向用户提供的小程序，为用户提供包括但不限于课程信息交换等服务（以下简称"本服务"）。
                     </view>
-                    <view class="weui-article__h3">2.2 本服务的形式</view>
+                    <view class="weui-article__h3">2.2 目标使用人群</view>
                     <view class="weui-article__p">
-                        你使用本服务需要下载腾讯微信客户端软件，本服务由微信小程序、以对应公众号及网站组成，对于这些服务，
+                        本平台的目标使用人群为北京大学国家发展研究院经济学双学位的在读学生。
+                    </view>
+                    <view class="weui-article__h3">2.3 与北京大学国家发展研究院的关系</view>
+                    <view class="weui-article__p">
+                        本平台为"市场自发产生的公共品自愿供给"（Fu, 2017）。尽管本平台提供的服务与北京大学国家发展研究院（以下简称"北大国发院"）经济学双学位项目相关，但是北大国发院并不参与本平台的开发与运营。即使北大国发院本平台的服务进行任何形式的推广与宣传，北大国发院也并不需要为用户在使用本服务的过程中付出的任何成本负责。
                     </view>
                 </view>
             </view>
         </view>
+
+
+            <view class="weui-article__section">
+                <view class="weui-article__title">三、用户隐私</view>
+                <view class="weui-article__section">
+                    <view class="weui-article__h3">3.1 关于获取用户信息</view>
+                    <view class="weui-article__p">
+                        注册本平台之前需要用户验证手机号码，用户在注册时需要填写入学年份和学生类型。此外，本平台会获取由微信提供的头像、昵称、性别、所属地区等基本信息（详情可参考微信小程序API-开放接口-用户信息）。
+                    </view>
+                    <view class="weui-article__h3">3.2 关于展示用户信息</view>
+                    <view class="weui-article__p">
+                        本平台尽可能地保护用户的隐私（如手机号、微信号），但是作为一个交换信息平台，联系方式的曝光又是不可避免的，为此开发者通过限制用户查看联系方式次数来的策略来降低用户隐私信息的曝光率，每个用户24小时之内只能查看十个人的联系方式。
+                    </view>
+                </view>
+            </view>
+        </view>
+
+
+            <view class="weui-article__section">
+                <view class="weui-article__title">四、免责声明</view>
+                <view class="weui-article__section">
+                    <view class="weui-article__h3">4.1 关于身份与信息的真实性</view>
+                    <view class="weui-article__p">
+                        本平台无法确保用户身份的真实性与用户发布的信息的真实性，因此用户需要提高警惕，以免浪费自己宝贵的时间和精力，甚至错失选课的机会。
+                    </view>
+                    <view class="weui-article__h3">4.2 关于交换课程</view>
+                    <view class="weui-article__p">
+                        本平台作为第三方换课信息交流平台，而换课这个行为并不会发生在此平台上，因此本平台不会对用户的换课失败负责。建议用户在合适的时间和网络条件较好的情况下进行换课操作。
+                    </view>
+                </view>
+            </view>
+        </view>
+
+
+
 
         <view class="weui-btn-area">
             <button class="weui-btn" type="primary" bindtap="goBack">阅读并同意该协议</button>
@@ -57,3 +96,4 @@
         </view>
     </view>
 </view>
+
