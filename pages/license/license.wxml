@@ -40,11 +40,11 @@
                     </view>
                     <view class="weui-article__h3">2.3 与北京大学国家发展研究院的关系</view>
                     <view class="weui-article__p">
-                        本平台为"市场自发产生的公共品自愿供给"（Fu, 2017）。尽管本平台提供的服务与北京大学国家发展研究院（以下简称"北大国发院"）经济学双学位项目相关，但是北大国发院并不参与本平台的开发与运营。即使北大国发院本平台的服务进行任何形式的推广与宣传，北大国发院也并不需要为用户在使用本服务的过程中付出的任何成本负责。
+                        本平台为"市场自发产生的公共品自愿供给"（Fu,
+                        2017）。尽管本平台提供的服务与北京大学国家发展研究院（以下简称"北大国发院"）经济学双学位项目相关，但是北大国发院并不参与本平台的开发与运营。即使北大国发院本平台的服务进行任何形式的推广与宣传，北大国发院也并不需要为用户在使用本服务的过程中付出的任何成本负责。
                     </view>
                 </view>
             </view>
-        </view>
 
 
             <view class="weui-article__section">
@@ -60,7 +60,6 @@
                     </view>
                 </view>
             </view>
-        </view>
 
 
             <view class="weui-article__section">
@@ -76,16 +75,13 @@
                     </view>
                 </view>
             </view>
-        </view>
 
 
-
-
-        <view class="weui-btn-area">
-            <button class="weui-btn" type="primary" bindtap="goBack">阅读并同意该协议</button>
+            <view class="weui-btn-area">
+                <button class="weui-btn" type="primary" bindtap="goBack">阅读并同意该协议</button>
+            </view>
         </view>
     </view>
-
 
     <view class="page__ft">
         <view class="weui-footer">
