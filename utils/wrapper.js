@@ -41,7 +41,8 @@ let wxw = {
     myPostUrl: baseUrl + "/api/v1/student/post",
     viewContractUrl: baseUrl + "/api/v1/course/post/viewcount",
 
-    sharedPostUrl: baseUrl + "/api/v1/course/post/"
+    sharedPostUrl: baseUrl + "/api/v1/course/post/",
+    shareNoticeUrl: baseUrl + "/api/v1/post/share"
   },
 
   showMessage(msg, title) {
@@ -345,6 +346,15 @@ let wxw = {
 
   getSharedPost(fuzzy_post_id) {
     return this.request(this.urls.sharedPostUrl + fuzzy_post_id, {}, {})
+  },
+
+  postShare(post_id, post_type, student_id) {
+    let data = {
+      post_id: Number.parseInt(post_id),
+      post_type: 0
+    }
+    if (student_id) data['student_id'] = student_id
+    return this.request(this.urls.shareNoticeUrl, data, {}, 'json', 'POST')
   }
 }
 
