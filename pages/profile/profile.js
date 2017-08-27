@@ -82,7 +82,7 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: '黑市交易',
+      title: 'Black Market',
       desc: '快来和我换课吧',
       path: '/pages/profile/profile?uid=' + this.data.userId + '&shared=1',
     }
@@ -106,6 +106,12 @@ Page({
         })
       }
     }
+  },
+
+  previewAvatar(e) {
+    wx.previewImage({
+      urls: [this.data.student.avatar_url]
+    })
   },
 
   shareProfile() {

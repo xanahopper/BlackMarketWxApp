@@ -7,7 +7,7 @@
         </view>
         <view class="bm-profile-container">
             <view class="bm-profile-avatar-container">
-                <image class="bm-profile-avatar" src="{{student.avatar_url}}"></image>
+                <image class="bm-profile-avatar" src="{{student.avatar_url}}" bindtap="previewAvatar"></image>
                 <text class="bm-profile-name">{{student.username}}</text>
 
                 <text class="bm-profile-desc">我在 {{student.create_time}} 加了黑市</text>

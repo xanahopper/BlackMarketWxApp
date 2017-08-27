@@ -32,6 +32,12 @@ Page({
     wxw.getSharedPost(id)
       .then(res => {
         app.processData([res.data.post], null, true)
+        if (res.data.post.demand.course) {
+          app.processSchedules(res.data.post.demand.course)
+        }
+        if (res.data.post.supply.course) {
+          app.processSchedules(res.data.post.supply.course)
+        }
         that.setData({
           post: res.data.post,
           inited: true

@@ -11,9 +11,11 @@ import {
   EmptyLocalBindError,
   ResponseError,
   ErrorTypes
-} from './utils/exception';
-import wxw from './utils/wrapper';
+} from './utils/exception'
+import wxw from './utils/wrapper'
 import moment from './utils/moment'
+
+let weekDays = ['一', '二', '三', '四', '五', '六', '日']
 
 App({
   globalData: {
@@ -51,6 +53,14 @@ App({
       if (!origin && item.message.length > 15) item.message = item.message.substr(0, 15) + '...'
       if (cb) cb(item)
     })
+  },
+
+  processSchedules(data) {
+    if (data.schedules) {
+      data.schedule_label = data.schedules.map(item => {
+        return '每周' + weekDays[item.day - 1] + '第' + item.start + '至' + item.end + '节'
+      })
+    }
   },
 
   checkLogin(url) {
@@ -112,6 +122,7 @@ App({
             that.globalData.courseNames = []
             res.data.forEach(item => {
               that.globalData.courseNames.push(item.name)
+              that.processSchedules(item)
             })
           })
         return Promise.resolve(that.globalData)

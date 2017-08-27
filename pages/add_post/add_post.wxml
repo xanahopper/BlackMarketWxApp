@@ -27,6 +27,11 @@
                         <view class="weui-cell__bd">学分</view>
                         <view class="weui-cell__ft">{{courses[demandIndex].credit}}</view>
                     </view>
+
+                    <view class="weui-cell" wx:for="{{courses[demandIndex].schedule_label}}" wx:key="id">
+                        <view class="weui-cell__bd">{{index == 0 ? '课程安排' : ''}}</view>
+                        <view class="weui-cell__ft">{{ item }}</view>
+                    </view>
                 </block>
             </view>
         </block>
@@ -54,6 +59,10 @@
                     <view class="weui-cell">
                         <view class="weui-cell__bd">学分</view>
                         <view class="weui-cell__ft">{{courses[supplyIndex].credit}}</view>
+                    </view>
+                    <view class="weui-cell" wx:for="{{courses[supplyIndex].schedule_label}}" wx:key="id">
+                        <view class="weui-cell__bd">{{index == 0 ? '课程安排' : ''}}</view>
+                        <view class="weui-cell__ft">{{ item }}</view>
                     </view>
                 </block>
             </view>
