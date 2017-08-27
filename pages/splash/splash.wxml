@@ -3,6 +3,7 @@
         <view class="bm-splash-icon-container">
             <image src="/images/favicon.png" mode="aspectFit" class="bm-splash-icon"></image>
         </view>
-        <text class="textStyle">想一句话吧，如果不需要，直接删掉好了</text>
+        <text class="textStyle">Welcome to Black Market</text>
+        <text class="textStyle2">Black Market is an information exchange platform that helps NSDers trade their courses and more. </text>
     </view>
 </view>

@@ -160,19 +160,23 @@ Page({
   bindDialMobile(e) {
     let that = this
     if (this.data.hasViewedContract) {
-      wx.showModal({
-        title: '拨打电话',
-        content: '你确定要拨打"' + this.data.post.student.username + '"的电话"' + this.data.post.mobile + '"么？',
-        confirmText: '确定',
-        cancelText: '取消',
-        success(res) {
-          if (res.confirm) {
-            wx.makePhoneCall({
-              phoneNumber: that.data.post.mobile
-            })
+      if (this.data.post.switch === 1) {
+        wx.showModal({
+          title: '拨打电话',
+          content: '你确定要拨打"' + this.data.post.student.username + '"的电话"' + this.data.post.mobile + '"么？',
+          confirmText: '确定',
+          cancelText: '取消',
+          success(res) {
+            if (res.confirm) {
+              wx.makePhoneCall({
+                phoneNumber: that.data.post.mobile
+              })
+            }
           }
-        }
-      })
+        })
+      } else {
+        wxw.showMessage('此人电话已隐藏')
+      }
     } else {
       this.viewContract()
     }

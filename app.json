@@ -11,7 +11,8 @@
     "pages/post/post",
     "pages/my_list/my_list",
     "pages/license/license",
-    "pages/share/sharedPost"
+    "pages/share/sharedPost",
+    "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "dark",

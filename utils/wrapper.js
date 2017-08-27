@@ -42,7 +42,8 @@ let wxw = {
     viewContractUrl: baseUrl + "/api/v1/course/post/viewcount",
 
     sharedPostUrl: baseUrl + "/api/v1/course/post/",
-    shareNoticeUrl: baseUrl + "/api/v1/post/share"
+    shareNoticeUrl: baseUrl + "/api/v1/post/share",
+    sharedProfileUrl: baseUrl + "/api/v1/student/share/profile/"
   },
 
   showMessage(msg, title) {
@@ -355,6 +356,10 @@ let wxw = {
     }
     if (student_id) data['student_id'] = student_id
     return this.request(this.urls.shareNoticeUrl, data, {}, 'json', 'POST')
+  },
+
+  getSharedProfile(user_id) {
+    return this.request(this.urls.sharedProfileUrl + user_id, {}, {})
   }
 }
 

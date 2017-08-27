@@ -172,8 +172,8 @@ Page({
           .catch(err => {
             if (err.type && err.type === ErrorTypes.Response) {
               console.log(err)
-              if (err.data.data.errMsg) {
-                wxw.showMessage(err.data.data.errMsg)
+              if (err.data.data.errmsg) {
+                wxw.showMessage(err.data.data.errmsg)
               } else {
                 wxw.showMessage('获取验证码时出现错误，请重试')
               }

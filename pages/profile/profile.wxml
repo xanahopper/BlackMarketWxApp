@@ -1,0 +1,28 @@
+<!--profile.wxml-->
+<view class="page">
+    <view class="page__bd">
+        <view class="bm-profile-app-container">
+            <image src="/images/favicon.png" mode="aspectFit" class="bm-splash-icon"></image>
+            <text class="bm-splash-text">Black Market</text>
+        </view>
+        <view class="bm-profile-container">
+            <view class="bm-profile-avatar-container">
+                <image class="bm-profile-avatar" src="{{student.avatar_url}}"></image>
+                <text class="bm-profile-name">{{student.username}}</text>
+
+                <text class="bm-profile-desc">我在 {{student.create_time}} 加了黑市</text>
+                <text class="bm-profile-desc">是第{{student.id}}个来到黑市的小伙伴</text>
+            </view>
+
+        </view>
+
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" bindtap="gotoApp"
+                    wx:if="{{shared!=0}}">进入小程序</button>
+            <button class="weui-btn" type="primary" open-type="share"
+                    wx:if="{{shared==0}}">分享</button>
+            <button class="weui-btn" type="normal" bindtap="gotoNext"
+                    wx:if="{{nextUrl}}">继续</button>
+        </view>
+    </view>
+</view>
