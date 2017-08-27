@@ -139,7 +139,7 @@ Page({
       desc: '快来和我换课吧',
       path: '/pages/share/sharedPost?id=' + encodeURIComponent(this.data.post.fuzzy_id),
       success(res) {
-        wxw.postShare(that.data.post_id, 0, app.globalData.bindInfo.id)
+        wxw.postShare(that.data.post_id, 1, app.globalData.bindInfo.id)
       }
     }
   },

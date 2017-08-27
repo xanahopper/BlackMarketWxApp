@@ -233,3 +233,25 @@ text.active {
   width: 80px;
 
 }
+
+.bm-top-filter-label {
+  padding-bottom: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 12px;
+  color: #576b95;
+}
+
+.bm-top-label {
+  margin: 5px 10px;
+}
+
+.bm-top-text {
+  display: inline-block;
+  float: right;
+  margin-right: 5px;
+}
+
+.bm-m-r-md {
+  margin-right: 5px;
+}

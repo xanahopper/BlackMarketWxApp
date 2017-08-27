@@ -12,7 +12,9 @@
                            wx:if="{{sortState == 4}}"></image>
                 </view>
                 <view class="bm-top-button bm-top-button__expand" bindtap="toggleFilter">
-                    <text class="bm-top-button__text">筛选</text>
+                    <image class="bm-top-button__icon bm-m-r-md" src="/images/right.png"
+                           wx:if="{{filtered}}"></image>
+                    <text class="bm-top-button__text {{filtered ? 'active' : ''}}">筛选</text>
                     <image class="bm-top-button__icon" src="/images/sortable.png"></image>
                 </view>
             </view>
@@ -71,6 +73,12 @@
             <view class="bm-top-mask" hidden="{{!(sortShowed || filterShowed)}}" bindtap="cancelMask"></view>
         </view>
         <view class="timeline" wx:if="{{!inputShowed || !filterShowed}}">
+            <view class="bm-top-filter-label" hidden="true">
+                <text class="bm-top-label">当前筛选</text>
+                <text class="bm-top-text" wx:if="{{filterSupply != 0}}">提供：{{courses[supplyIndex].name}}</text>
+                <text class="bm-top-text" wx:if="{{filterDemand != 0}}">需求：{{courses[demandIndex].name}}</text>
+                <text class="bm-top-text" wx:if="{{filterOnlyOpen}}">仅显示可交易</text>
+            </view>
             <view class="weui-form-preview" wx:for="{{posts}}" wx:key="id">
                 <view class="weui-form-preview__hd">
                     <view class="weui-form-preview__item" wx:if="{{item.supply.course}}">

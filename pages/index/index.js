@@ -30,6 +30,7 @@ Page({
     filterSupply: 0,
     filterDemand: 0,
     filterOnlyOpen: true,
+    filtered: true
   },
 
   refreshPostList() {
@@ -172,6 +173,8 @@ Page({
       data.filterOnlyOpen = this.data.onlyOpen
       filterChanged = true
     }
+    data.filtered = (data.supplyIndex || data.demandIndex || data.filterOnlyOpen)
+
     this.setData(data)
     if (filterChanged) {
       this.refreshPostList()

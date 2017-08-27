@@ -351,7 +351,7 @@ let wxw = {
   postShare(post_id, post_type, student_id) {
     let data = {
       post_id: Number.parseInt(post_id),
-      post_type: 0
+      post_type: Number.parseInt(post_type)
     }
     if (student_id) data['student_id'] = student_id
     return this.request(this.urls.shareNoticeUrl, data, {}, 'json', 'POST')
