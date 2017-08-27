@@ -99,6 +99,7 @@
 }
 
 .bm-top-button__icon {
+  margin-left: 5px;
   height: 16px;
   width: 16px;
 }
@@ -239,7 +240,8 @@ text.active {
   padding-left: 8px;
   padding-right: 8px;
   font-size: 12px;
-  color: #576b95;
+  /*color: #576b95;*/
+  color: #09bb07;
 }
 
 .bm-top-label {

@@ -12,10 +12,9 @@
                            wx:if="{{sortState == 4}}"></image>
                 </view>
                 <view class="bm-top-button bm-top-button__expand" bindtap="toggleFilter">
-                    <image class="bm-top-button__icon bm-m-r-md" src="/images/right.png"
-                           wx:if="{{filtered}}"></image>
                     <text class="bm-top-button__text {{filtered ? 'active' : ''}}">筛选</text>
-                    <image class="bm-top-button__icon" src="/images/sortable.png"></image>
+                    <image class="bm-top-button__icon" src="/images/filter.png" wx:if="{{!filtered}}"></image>
+                    <image class="bm-top-button__icon" src="/images/filter_active.png" wx:if="{{filtered}}"></image>
                 </view>
             </view>
             <view class="bm-top-container bm-top-filter-container" wx:if="{{filterShowed}}">

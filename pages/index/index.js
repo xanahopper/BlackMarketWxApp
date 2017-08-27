@@ -246,13 +246,17 @@ Page({
   },
 
   clearFilter(e) {
-    let filterChange = (this.data.filterSupply !== 0  || this.data.filterDemand !== 0)
+    let filterChange = (this.data.filterSupply !== 0  || this.data.filterDemand !== 0 || !this.data.filterOnlyOpen)
     this.setData({
       supplyIndex: 0,
       demandIndex: 0,
+      onlyOpen: true,
       filterSupply: 0,
       filterDemand: 0,
-      filterShowed: false
+      filterOnlyOpen: true,
+      filtered: true,
+      filterShowed: false,
+
     })
     if (filterChange) this.refreshPostList()
   },
