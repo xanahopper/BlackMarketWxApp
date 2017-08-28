@@ -21,9 +21,9 @@
                     <view class="weui-form-preview__value">{{ post.supply.course.credit }}</view>
                 </view>
 
-                <view class="weui-form-preview__post">
+                <view class="weui-form-preview__post" wx:if="{{post.supply.course.schedule_label}}">
                     <view class="weui-form-preview__label">课程安排</view>
-                    <view class="weui-form-preview__value" wx:for="{{post.demand.supply.schedule_label}}" wx:key="id">
+                    <view class="weui-form-preview__value" wx:for="{{post.supply.course.schedule_label}}" wx:key="id">
                         {{ item }}
                     </view>
                 </view>
@@ -52,7 +52,7 @@
                     <view class="weui-form-preview__value">{{ post.demand.course.credit }}</view>
                 </view>
 
-                <view class="weui-form-preview__post">
+                <view class="weui-form-preview__post" wx:if="{{post.demand.course.schedule_label}}">
                     <view class="weui-form-preview__label">课程安排</view>
                     <view class="weui-form-preview__value" wx:for="{{post.demand.course.schedule_label}}" wx:key="id">
                         {{ item }}
