@@ -8,7 +8,9 @@ Page({
    */
   data: {
     gradeIndex: 0,
-    grades: ['2012', '2013', '2014', '2015', '2016', '2017'],
+    grades: ['2012', '2013', '2014', '2015', '2016', '2017', '其他'],
+    customGrade: false,
+    grade: '',
 
     typeIndex: 0,
     types: [],
@@ -23,10 +25,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let index = this.data.grades.indexOf(app.globalData.bindInfo.grade)
     this.setData({
       session: app.globalData.session,
       bindInfo: app.globalData.bindInfo,
-      gradeIndex: this.data.grades.indexOf(app.globalData.bindInfo.grade),
+      gradeIndex: index !== -1 ? index : this.data.grades.length - 1,
+      customGrade: index ===-1,
+      grade: app.globalData.bindInfo.grade,
       typeIndex: app.globalData.typeIndex[app.globalData.bindInfo.type],
       types: app.globalData.types
     })
@@ -80,6 +85,12 @@ Page({
     })
   },
 
+  bindGradeInput(e) {
+    this.setData({
+      grade: e.detail.value
+    })
+  },
+
   bindTypeChange(e) {
     console.log(e.detail.value)
     this.setData({
@@ -101,8 +112,9 @@ Page({
   },
 
   submitInfo(e) {
+    let grade = (this.data.gradeIndex === this.data.grades.length - 1) ? this.data.grade : this.data.grades[this.data.gradeIndex]
     let data = {
-      grade: this.data.grades[this.data.gradeIndex],
+      grade,
       type: Number.parseInt(this.data.types[this.data.typeIndex].value)
     }
     console.log(data)

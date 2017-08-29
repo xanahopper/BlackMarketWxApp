@@ -16,6 +16,16 @@
         </view>
       </view>
 
+      <view class="weui-cell weui-cell_input" wx:if="{{customGrade}}">
+        <view class="weui-cell__hd">
+          <view class="weui-label"></view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" type="number" placeholder="请输入年级" confirm-type="next"
+                 bindinput="bindGradeInput" value="{{grade}}"/>
+        </view>
+      </view>
+
       <view class="weui-cell weui-cell_select">
         <view class="weui-cell__hd weui-cell__hd_in-select-after">
           <view class="weui-label">类型</view>

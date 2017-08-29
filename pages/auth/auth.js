@@ -15,7 +15,9 @@ Page({
     TopTips: "信息不完整",
 
     gradeIndex: -1,
-    grades: ['2012', '2013', '2014', '2015', '2016', '2017'],
+    grades: ['2012', '2013', '2014', '2015', '2016', '2017', '其他'],
+    grade: '',
+    customGrade: false,
 
     typeIndex: -1,
     types: [],
@@ -117,12 +119,14 @@ Page({
   submitBindPhone: function () {
     let that = this
     if (this.data.isAgree && this.data.phoneNum !== null && this.data.verifyCode !== null
-      && this.data.typeIndex !== -1 && this.data.gradeIndex !== -1) {
+      && this.data.typeIndex !== -1 && this.data.gradeIndex !== -1 &&
+      (this.data.gradeIndex === this.data.grades.length - 1 && this.data.grade.trim().length !== 0)) {
+      let grade = (this.data.gradeIndex !== this.data.grades.length - 1) ? this.data.grades[this.data.gradeIndex] : this.data.grade
       let data = {
         mobile: this.data.phoneNum,
         verify_code: this.data.verifyCode,
         session_key: this.data.session,
-        grade: this.data.grades[this.data.gradeIndex],
+        grade,
         type: this.data.types[this.data.typeIndex].value
       }
       wxw.uploadStudentInfo(this.data.session, data)
@@ -212,8 +216,16 @@ Page({
   },
 
   bindGradeChange(e) {
+    let data = {
+      gradeIndex: Number.parseInt(e.detail.value)
+    }
+    data.customGrade = Number.parseInt(e.detail.value) === this.data.grades.length - 1;
+    this.setData(data)
+  },
+
+  bindGradeInput(e) {
     this.setData({
-      gradeIndex: e.detail.value
+      grade: e.detail.value
     })
   },
 
