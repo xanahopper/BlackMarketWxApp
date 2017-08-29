@@ -42,9 +42,10 @@ let wxw = {
     viewContractUrl: baseUrl + "/api/v1/course/post/viewcount",
 
     sharedPostUrl: baseUrl + "/api/v1/course/post/",
-    shareNoticeUrl: baseUrl + "/api/v1/share/post",
+    sharePostNoticeUrl: baseUrl + "/api/v1/share/post",
     sharedProfileUrl: baseUrl + "/api/v1/student/share/profile/",
-    sharedProfileImage: baseUrl + "/api/v1/share/student/"
+    sharedProfileImage: baseUrl + "/api/v1/share/student/",
+    shareProfileNoticeUrl: baseUrl + "/api/v1/share/student"
   },
 
   showMessage(msg, title) {
@@ -374,7 +375,7 @@ let wxw = {
       post_type: Number.parseInt(post_type)
     }
     if (student_id) data['student_id'] = student_id
-    return this.request(this.urls.shareNoticeUrl, data, {}, 'json', 'POST')
+    return this.request(this.urls.sharePostNoticeUrl, data, {}, 'json', 'POST')
   },
 
   getSharedProfile(user_id) {
@@ -383,6 +384,13 @@ let wxw = {
 
   getSharedProfileImage(user_id) {
     return this.download(this.urls.sharedProfileImage + user_id + '/image')
+  },
+
+  profileShare(student_id) {
+    let data = {
+      student_id
+    }
+    return this.request(this.urls.shareProfileNoticeUrl, data, {}, 'json', 'POST')
   }
 }
 

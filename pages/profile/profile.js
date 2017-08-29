@@ -95,10 +95,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    let that = this
     return {
       title: 'Black Market',
       desc: '快来和我换课吧',
       path: '/pages/profile/profile?uid=' + this.data.userId + '&shared=1',
+      success() {
+        wxw.profileShare(that.data.userId)
+      }
     }
   },
 
