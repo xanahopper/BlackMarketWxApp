@@ -1,6 +1,20 @@
 // profile.js
 import wxw from '../../utils/wrapper'
 import moment from '../../utils/moment'
+
+import {
+  SessionExpiredError,
+  LoginError,
+  SessionError,
+  UserInfoError,
+  BindInfoError,
+  ServerError,
+  NetworkError,
+  EmptyLocalBindError,
+  ResponseError,
+  ErrorTypes
+} from '../../utils/exception'
+
 let app = getApp()
 
 Page({
@@ -116,5 +130,26 @@ Page({
 
   shareProfile() {
     wx.showShareMenu()
+  },
+
+  shareMoment() {
+    let that = this
+    wx.showModal({
+      content: '将打开的图片保存后，可分享于朋友圈',
+      showCancel: false,
+      complete() {
+        wxw.getSharedProfileImage(that.data.userId)
+          .then(res => {
+            wx.previewImage({
+              urls: [res.tempFilePath]
+            })
+          })
+          .catch(err => {
+            console.log(err.message)
+          })
+      }
+    })
+
+
   }
 })

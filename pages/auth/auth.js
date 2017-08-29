@@ -122,26 +122,30 @@ Page({
       wxw.uploadStudentInfo(this.data.session, data)
         .then(res => {
           app.globalData.bindInfo = res.data
-          wx.showToast({
-            title: '绑定成功',
-            icon: 'success',
-            duration: 2000,
-            mask: true,
-            complete: function () {
-              setTimeout(() => {
-                if (that.data.redirect) {
-                  wx.redirectTo({
-                    url: decodeURIComponent(that.data.redirect)
-                  })
-                } else {
-                  wx.switchTab({
-                    url: '/pages/index/index'
-                  })
-                }
-              }, 2000)
+          app.fetchCourses()
+            .then(_ => {
+              wx.showToast({
+                title: '绑定成功',
+                icon: 'success',
+                duration: 2000,
+                mask: true,
+                complete: function () {
+                  setTimeout(() => {
+                    if (that.data.redirect) {
+                      wx.redirectTo({
+                        url: decodeURIComponent(that.data.redirect)
+                      })
+                    } else {
+                      wx.switchTab({
+                        url: '/pages/index/index'
+                      })
+                    }
+                  }, 2000)
 
-            }
-          })
+                }
+              })
+            })
+
         })
         .catch(err => {
           if (err.type && err.type === ErrorTypes.Response) {

@@ -58,9 +58,31 @@ App({
   processSchedules(data) {
     if (data.schedules) {
       data.schedule_label = data.schedules.map(item => {
-        return '每周' + weekDays[item.day - 1] + '第' + item.start + '至' + item.end + '节'
+        let desc = '周' + weekDays[item.day - 1] + '第' + item.start + '至' + item.end + '节'
+        if (item.frequency === 'every') {
+          desc = '每' + desc
+        } else if (item.frequency === 'odd') {
+          desc += '（单周）'
+        } else if (item.frequency === 'even') {
+          desc += '（双周）'
+        }
+        return desc
       })
     }
+  },
+
+  fetchCourses() {
+    let that = this
+    return wxw.getCourses(that.globalData.session)
+      .then(res => {
+        that.globalData.courses = res.data
+        that.globalData.courseNames = []
+        res.data.forEach(item => {
+          that.globalData.courseNames.push(item.name)
+          that.processSchedules(item)
+        })
+        return Promise.resolve(that.globalData)
+      })
   },
 
   checkLogin(url) {
@@ -116,16 +138,8 @@ App({
       .then(res => {
         console.log(res)
         that.globalData.bindInfo = res
-        wxw.getCourses(that.globalData.session)
-          .then(res => {
-            that.globalData.courses = res.data
-            that.globalData.courseNames = []
-            res.data.forEach(item => {
-              that.globalData.courseNames.push(item.name)
-              that.processSchedules(item)
-            })
-          })
-        return Promise.resolve(that.globalData)
+
+        return that.fetchCourses()
       })
       .catch(err => {
         console.error(err)

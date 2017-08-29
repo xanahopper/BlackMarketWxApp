@@ -15,7 +15,7 @@ import {
   ErrorTypes,
 } from 'exception'
 
-let baseUrl = "https://dev.pkublackmarket.cn"
+let baseUrl = "https://pkublackmarket.cn"
 
 let wxw = {
   keys: {
@@ -42,8 +42,9 @@ let wxw = {
     viewContractUrl: baseUrl + "/api/v1/course/post/viewcount",
 
     sharedPostUrl: baseUrl + "/api/v1/course/post/",
-    shareNoticeUrl: baseUrl + "/api/v1/post/share",
-    sharedProfileUrl: baseUrl + "/api/v1/student/share/profile/"
+    shareNoticeUrl: baseUrl + "/api/v1/share/post",
+    sharedProfileUrl: baseUrl + "/api/v1/student/share/profile/",
+    sharedProfileImage: baseUrl + "/api/v1/share/student/"
   },
 
   showMessage(msg, title) {
@@ -152,6 +153,24 @@ let wxw = {
         },
         fail() {
           reject(new NetworkError('Caused when request to ' + url))
+        }
+      })
+    })
+  },
+
+  download(url, data, header = {}, type = 'json') {
+    let contentType = (type == 'form') ? 'application/x-www-form-urlencoded' : 'application/json'
+    header['content-type'] = contentType
+
+    return new Promise((resolve, reject) => {
+      wx.downloadFile({
+        url: url,
+        header: header,
+        success(res) {
+          resolve(res)
+        },
+        fail(err) {
+          reject(new NetworkError(err.errMsg))
         }
       })
     })
@@ -360,6 +379,10 @@ let wxw = {
 
   getSharedProfile(user_id) {
     return this.request(this.urls.sharedProfileUrl + user_id, {}, {})
+  },
+
+  getSharedProfileImage(user_id) {
+    return this.download(this.urls.sharedProfileImage + user_id + '/image')
   }
 }
 

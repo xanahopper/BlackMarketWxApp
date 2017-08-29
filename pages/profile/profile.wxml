@@ -21,6 +21,8 @@
                     wx:if="{{shared!=0}}">进入小程序</button>
             <button class="weui-btn" type="primary" open-type="share"
                     wx:if="{{shared==0}}">分享</button>
+            <button class="weui-btn" type="normal"  bindtap="shareMoment"
+                    wx:if="{{shared==0}}">分享至朋友圈</button>
             <button class="weui-btn" type="normal" bindtap="gotoNext"
                     wx:if="{{nextUrl}}">继续</button>
         </view>
