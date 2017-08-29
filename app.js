@@ -24,7 +24,22 @@ App({
     courses: [],
     courseNames: [],
     session: null,
-    needRefresh: true
+    needRefresh: true,
+    types: [{
+      name: 'NSD本科生',
+      value: 1
+    }, {
+      name: 'NSD双学位',
+      value: 2
+    }, {
+      name: '元培PPE',
+      value: 3,
+    }, {
+      name: '其他',
+      value: 0
+    }],
+    typeValues: [1, 2, 3, 0],
+    typeIndex: [3, 0, 1, 2]
   },
 
   errorMsgs: {

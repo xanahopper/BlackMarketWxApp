@@ -8,10 +8,10 @@ Page({
    */
   data: {
     gradeIndex: 0,
-    grades: ['2014', '2015', '2016', '2017'],
+    grades: ['2012', '2013', '2014', '2015', '2016', '2017'],
 
     typeIndex: 0,
-    types: ['双学位', '元培PPE', '其他'],
+    types: [],
     session: null,
     bindInfo: null,
 
@@ -27,7 +27,8 @@ Page({
       session: app.globalData.session,
       bindInfo: app.globalData.bindInfo,
       gradeIndex: this.data.grades.indexOf(app.globalData.bindInfo.grade),
-      typeIndex: app.globalData.bindInfo.type
+      typeIndex: app.globalData.typeIndex[app.globalData.bindInfo.type],
+      types: app.globalData.types
     })
   },
 
@@ -102,7 +103,7 @@ Page({
   submitInfo(e) {
     let data = {
       grade: this.data.grades[this.data.gradeIndex],
-      type: Number.parseInt(this.data.typeIndex)
+      type: Number.parseInt(this.data.types[this.data.typeIndex].value)
     }
     console.log(data)
     wxw.uploadStudentInfo(this.data.session, data, 'PUT')

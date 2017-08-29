@@ -32,7 +32,7 @@
       </view>
       <view class="weui-cell">
         <view class="weui-cell__bd">类型</view>
-        <view class="weui-cell__ft">{{ types[bindInfo.type] }}</view>
+        <view class="weui-cell__ft">{{ types[typeIndex[bindInfo.type]].name }}</view>
       </view>
       <navigator url="../edit_info/edit_info" class="weui-cell weui-cell_link weui-cell__access">
         <view class="weui-cell__bd weui-cell__ft_in-access">修改个人信息</view>

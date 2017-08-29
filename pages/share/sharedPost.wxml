@@ -78,7 +78,7 @@
             </view>
             <view class="weui-cell">
                 <view class="weui-cell__bd">类型</view>
-                <view class="weui-cell__ft">{{types[post.student.type]}}</view>
+                <view class="weui-cell__ft">{{types[typeIndex[post.student.type]].name}}</view>
             </view>
 
             <view class="weui-cell" wx:if="{{post.message}}">

@@ -30,8 +30,10 @@
                     <view class="weui-label">类型</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
-                        <view class="weui-select weui-select_in-select-after">{{types[typeIndex]}}</view>
+                    <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}" range-key="name">
+                        <view class="weui-select weui-select_in-select-after">
+                            {{typeIndex != -1 ? types[typeIndex].name : ''}}
+                        </view>
                     </picker>
                 </view>
             </view>

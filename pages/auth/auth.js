@@ -14,11 +14,12 @@ Page({
     showTopTips: false,
     TopTips: "信息不完整",
 
-    gradeIndex: 0,
-    grades: ['2014', '2015', '2016', '2017'],
+    gradeIndex: -1,
+    grades: ['2012', '2013', '2014', '2015', '2016', '2017'],
 
-    typeIndex: 0,
-    types: ['双学位', '元培PPE', '其他'],
+    typeIndex: -1,
+    types: [],
+    typeIndices: [],
     session: null,
 
     verifyCodeCountdown: 0,
@@ -37,21 +38,25 @@ Page({
         redirect: options.redirect
       })
     }
-    if (options.edit && options.edit == "1") {
+    if (options.edit && options.edit === "1") {
       this.setData({
         edit: true,
         isAgree: true,
         gradeIndex: this.data.grades.indexOf(app.globalData.bindInfo.grade),
-        typeIndex: app.globalData.bindInfo.type,
+        typeIndex: app.globalData.typeIndex[app.globalData.bindInfo.type],
         phoneNum: app.globalData.bindInfo.mobile,
-        session: app.globalData.session
+        session: app.globalData.session,
+        types: app.globalData.types,
+        typeIndices: app.globalData.typeIndex
       })
     } else {
       wxw.getSession()
         .then(session => {
           if (typeof session === "string") {
             that.setData({
-              session
+              session,
+              types: app.globalData.types,
+              typeIndices: app.globalData.typeIndex
             })
           } else {
             wx.redirectTo({
@@ -111,13 +116,14 @@ Page({
 
   submitBindPhone: function () {
     let that = this
-    if (this.data.isAgree && this.data.phoneNum !== null && this.data.verifyCode !== null) {
+    if (this.data.isAgree && this.data.phoneNum !== null && this.data.verifyCode !== null
+      && this.data.typeIndex !== -1 && this.data.gradeIndex !== -1) {
       let data = {
         mobile: this.data.phoneNum,
         verify_code: this.data.verifyCode,
         session_key: this.data.session,
         grade: this.data.grades[this.data.gradeIndex],
-        type: this.data.typeIndex
+        type: this.data.types[this.data.typeIndex].value
       }
       wxw.uploadStudentInfo(this.data.session, data)
         .then(res => {

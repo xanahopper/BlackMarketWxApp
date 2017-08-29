@@ -14,7 +14,8 @@ Page({
     post_id: 0,
     post: {},
     courses: {},
-    types: ['双学位', '元培PPE', '其他'],
+    types: [],
+    typeIndex: [],
     bindInfo: null,
     inited: false,
     hasViewedContract: false,
@@ -64,7 +65,9 @@ Page({
       })
     }
     this.setData({
-      post_id: options.id
+      post_id: options.id,
+      types: app.globalData.types,
+      typeIndex: app.globalData.typeIndex
     })
 
 

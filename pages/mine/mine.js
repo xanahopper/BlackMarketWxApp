@@ -7,14 +7,17 @@ Page({
       type: 0
     },
     grades: ['2014', '2015', '2016', '2017'],
-    types: ['双学位', '元培PPE', '其他']
+    types: [],
+    typeIndex: []
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     console.log(app.globalData)
     this.setData({
       userInfo: app.globalData.userInfo,
-      bindInfo: app.globalData.bindInfo
+      bindInfo: app.globalData.bindInfo,
+      types: app.globalData.types,
+      typeIndex: app.globalData.typeIndex
     })
 
 
