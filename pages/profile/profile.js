@@ -97,8 +97,8 @@ Page({
   onShareAppMessage: function () {
     let that = this
     return {
-      title: 'Black Market',
-      desc: '快来和我换课吧',
+      title: '我成为了Black Market第' + this.student.id + '位用户',
+      desc: '',
       path: '/pages/profile/profile?uid=' + this.data.userId + '&shared=1',
       success() {
         wxw.profileShare(that.data.userId)
