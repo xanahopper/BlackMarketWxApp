@@ -173,6 +173,7 @@ Page({
       let content = []
       if (this.data.demandIndex !== 0) content.push('需求：' + this.data.courseNames[this.data.demandIndex])
       if (this.data.supplyIndex !== 0) content.push('提供：' + this.data.courseNames[this.data.supplyIndex])
+      content.push('供求一经发布不能修改，仅能修改联系方式与留言')
       wx.showModal({
         title: '发布确认',
         content: content.join("\n"),

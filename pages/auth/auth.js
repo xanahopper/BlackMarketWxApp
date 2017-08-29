@@ -1,7 +1,7 @@
 // auth.js
 import wxw from '../../utils/wrapper'
 import { ErrorTypes } from '../../utils/exception'
-var app = getApp()
+let app = getApp()
 Page({
 
   /**
@@ -15,7 +15,7 @@ Page({
     TopTips: "信息不完整",
 
     gradeIndex: -1,
-    grades: ['2012', '2013', '2014', '2015', '2016', '2017', '其他'],
+    grades: ['2017', '2016', '2015', '2014', '2013', '2012', '其他'],
     grade: '',
     customGrade: false,
 
@@ -119,8 +119,8 @@ Page({
   submitBindPhone: function () {
     let that = this
     if (this.data.isAgree && this.data.phoneNum !== null && this.data.verifyCode !== null
-      && this.data.typeIndex !== -1 && this.data.gradeIndex !== -1 &&
-      (this.data.gradeIndex === this.data.grades.length - 1 && this.data.grade.trim().length !== 0)) {
+      && this.data.typeIndex !== -1 && (this.data.gradeIndex !== -1 ||
+      (this.data.gradeIndex === this.data.grades.length - 1 && this.data.grade.trim().length !== 0))) {
       let grade = (this.data.gradeIndex !== this.data.grades.length - 1) ? this.data.grades[this.data.gradeIndex] : this.data.grade
       let data = {
         mobile: this.data.phoneNum,

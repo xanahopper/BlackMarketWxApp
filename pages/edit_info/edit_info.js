@@ -8,7 +8,7 @@ Page({
    */
   data: {
     gradeIndex: 0,
-    grades: ['2012', '2013', '2014', '2015', '2016', '2017', '其他'],
+    grades: ['2017', '2016', '2015', '2014', '2013', '2012', '其他'],
     customGrade: false,
     grade: '',
 
@@ -30,7 +30,7 @@ Page({
       session: app.globalData.session,
       bindInfo: app.globalData.bindInfo,
       gradeIndex: index !== -1 ? index : this.data.grades.length - 1,
-      customGrade: index ===-1,
+      customGrade: index === -1,
       grade: app.globalData.bindInfo.grade,
       typeIndex: app.globalData.typeIndex[app.globalData.bindInfo.type],
       types: app.globalData.types
@@ -80,9 +80,11 @@ Page({
   },
 
   bindGradeChange(e) {
-    this.setData({
+    let data = {
       gradeIndex: e.detail.value
-    })
+    }
+    data.customGrade = (Number(e.detail.value) === this.data.grades.length - 1)
+    this.setData(data)
   },
 
   bindGradeInput(e) {
@@ -112,7 +114,8 @@ Page({
   },
 
   submitInfo(e) {
-    let grade = (this.data.gradeIndex === this.data.grades.length - 1) ? this.data.grade : this.data.grades[this.data.gradeIndex]
+    let grade = (Number.parseInt(this.data.gradeIndex) === this.data.grades.length - 1) ? this.data.grade :
+      this.data.grades[this.data.gradeIndex]
     let data = {
       grade,
       type: Number.parseInt(this.data.types[this.data.typeIndex].value)
