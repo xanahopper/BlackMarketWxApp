@@ -139,6 +139,7 @@
         <!-- 发布状态 结束 -->
 
         <view class="weui-btn-area" wx:if="{{bindInfo.id == post.student.id && post.status == 0}}">
+            <button class="weui-btn" type="normal" open-type="share" wx:if="{{post.status==0}}">分享</button>
             <button class="weui-btn" type="normal" bindtap="editPost">编辑</button>
             <button class="weui-btn" type="primary" bindtap="changePostStatus">关闭交易</button>
         </view>

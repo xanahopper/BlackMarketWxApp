@@ -146,8 +146,8 @@ Page({
                         url: decodeURIComponent(that.data.redirect)
                       })
                     } else {
-                      wx.switchTab({
-                        url: '/pages/index/index'
+                      wx.redirectTo({
+                        url: '/pages/profile/profile?uid=' + res.data.id + '&url=/pages/index/index&urlType=1'
                       })
                     }
                   }, 2000)
