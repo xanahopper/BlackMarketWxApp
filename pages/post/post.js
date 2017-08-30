@@ -137,8 +137,10 @@ Page({
    */
   onShareAppMessage: function () {
     let that = this
+    let title = (this.data.post.demand.course) ? ('求一门“' + this.data.courses[post.demand.course.id].name + '”') :
+      ('送你一门“' + this.data.courses[post.supply.course.id].name + '”')
     return {
-      title: 'Black Market',
+      title: title,
       desc: '快来和我换课吧',
       path: '/pages/share/sharedPost?id=' + encodeURIComponent(this.data.post.fuzzy_id),
       success(res) {

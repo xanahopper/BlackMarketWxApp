@@ -37,5 +37,6 @@
         "selectedIconPath": "images/mine_fill.png"
       }
     ]
-  }
+  },
+  "debug": false
 }
