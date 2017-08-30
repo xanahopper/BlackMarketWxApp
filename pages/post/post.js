@@ -137,8 +137,8 @@ Page({
    */
   onShareAppMessage: function () {
     let that = this
-    let title = (this.data.post.demand.course) ? ('求一门“' + this.data.courses[post.demand.course.id].name + '”') :
-      ('送你一门“' + this.data.courses[post.supply.course.id].name + '”')
+    let title = (this.data.post.demand.course) ? ('求一门“' + this.data.courses[this.data.post.demand.course.id].name + '”') :
+      ('送你一门“' + this.data.courses[this.data.post.supply.course.id].name + '”')
     return {
       title: title,
       desc: '快来和我换课吧',
