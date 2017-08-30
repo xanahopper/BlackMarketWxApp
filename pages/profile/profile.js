@@ -145,7 +145,7 @@ Page({
   shareMoment() {
     let that = this
     wx.showModal({
-      content: '将打开的图片保存后，可分享于朋友圈',
+      content: '将打开的图片保存后，可进行分享',
       showCancel: false,
       complete() {
         wx.showLoading()

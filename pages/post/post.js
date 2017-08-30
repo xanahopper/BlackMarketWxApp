@@ -239,7 +239,31 @@ Page({
         showCancel: false
       })
     }
+  },
 
+  sharePost(e) {
+    let that = this
+    wx.showModal({
+      content: '将打开的图片保存后，可进行分享',
+      showCancel: false,
+      complete() {
+        wx.showLoading()
+        wxw.getSharedPostImage(that.data.post, that.data.bindInfo.id)
+          .then(res => {
+            wx.hideLoading()
+            wx.previewImage({
+              urls: [res.tempFilePath]
+            })
+          })
+          .catch(err => {
+            wx.hideLoading()
+            console.log(err.message)
+          })
+        setTimeout(() => {
+          wx.hideLoading()
+        }, 10000)
+      }
+    })
   },
 
   changePostStatus(e) {

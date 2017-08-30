@@ -42,10 +42,11 @@ let wxw = {
     viewContractUrl: baseUrl + "/api/v1/course/post/viewcount",
 
     sharedPostUrl: baseUrl + "/api/v1/course/post/",
+    sharedPostImage: baseUrl + "/api/v1/share/post/",
     sharePostNoticeUrl: baseUrl + "/api/v1/share/post",
     sharedProfileUrl: baseUrl + "/api/v1/student/share/profile/",
     sharedProfileImage: baseUrl + "/api/v1/share/student/",
-    shareProfileNoticeUrl: baseUrl + "/api/v1/share/student"
+    shareProfileNoticeUrl: baseUrl + "/api/v1/share/student",
   },
 
   showMessage(msg, title) {
@@ -385,6 +386,18 @@ let wxw = {
   getSharedProfileImage(user_id) {
     return this.download(this.urls.sharedProfileImage + user_id + '/image?path=' +
       encodeURIComponent('pages/profile/profile?uid=' + user_id + '&shared=1'))
+  },
+
+  getSharedPostImage(post, user_id) {
+    let params = []
+    if (post.demand.course) params.push('demand=' + post.demand.course.id)
+    if (post.supply.course) params.push('supply=' + post.supply.course.id)
+    if (user_id) params.push('student_id=' + user_id)
+    let param = params.join('&')
+    let url = this.urls.sharedPostImage + post.id + '/image?path=' +
+      encodeURIComponent('pages/share/sharedPost?id=' + post.fuzzy_id)+ '&' + param
+    console.log(url)
+    return this.download(url)
   },
 
   profileShare(student_id) {
