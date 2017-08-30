@@ -33,6 +33,7 @@ Page({
    */
   onLoad: function (options) {
     let data = {}
+    console.log(options)
     if (options.uid) {
       data.userId = options.uid
     } else {
@@ -97,8 +98,8 @@ Page({
   onShareAppMessage: function () {
     let that = this
     return {
-      title: '我成为了Black Market第' + this.student.id + '位用户',
-      desc: '',
+      title: '我是Black Market第' + this.data.student.id + '位用户',
+      desc: '我是Black Market第' + this.data.student.id + '位用户',
       path: '/pages/profile/profile?uid=' + this.data.userId + '&shared=1',
       success() {
         wxw.profileShare(that.data.userId)
