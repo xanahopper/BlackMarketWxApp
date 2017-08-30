@@ -136,7 +136,7 @@ let wxw = {
    */
   request(url, data, header = {}, type = 'json', method = 'GET') {
     let that = this
-    let contentType = (type == 'form') ? 'application/x-www-form-urlencoded' : 'application/json'
+    let contentType = (type === 'form') ? 'application/x-www-form-urlencoded' : 'application/json'
     header['content-type'] = contentType
 
     return new Promise((resolve, reject) => {
@@ -146,14 +146,14 @@ let wxw = {
         header: header,
         method: method,
         success(data) {
-          if (data.statusCode == 200) {
+          if (data.statusCode === 200) {
             resolve(data.data)
           } else {
             reject(new ResponseError('', data))
           }
         },
-        fail() {
-          reject(new NetworkError('Caused when request to ' + url))
+        fail(err) {
+          reject(new NetworkError('Caused when request to ' + url + ', errMsg: ' + err.message))
         }
       })
     })
@@ -383,7 +383,8 @@ let wxw = {
   },
 
   getSharedProfileImage(user_id) {
-    return this.download(this.urls.sharedProfileImage + user_id + '/image')
+    return this.download(this.urls.sharedProfileImage + user_id + '/image?path=' +
+      encodeURIComponent('pages/profile/profile?uid=' + user_id + '&shared=1'))
   },
 
   profileShare(student_id) {

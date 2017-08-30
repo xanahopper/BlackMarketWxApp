@@ -37,9 +37,10 @@ Page({
     if (options.uid) {
       data.userId = options.uid
     } else {
-      wx.redirectTo({
-        url: '../error/error'
-      })
+      wxw.showMessage('uid不存在')
+      // wx.redirectTo({
+      //   url: '../error/error'
+      // })
     }
     if (options.shared) {
       data.shared = options.shared
@@ -57,9 +58,10 @@ Page({
         })
       })
       .catch(err => {
-        wx.redirectTo({
-          url: '../error/error'
-        })
+        wxw.showMessage('type: ' + err.type + ', msg: ' + err.message)
+        // wx.redirectTo({
+        //   url: '../error/error'
+        // })
       })
     this.setData(data)
   },

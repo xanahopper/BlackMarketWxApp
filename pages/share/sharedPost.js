@@ -123,7 +123,7 @@ Page({
   onShareAppMessage: function () {
     let that = this
     return {
-      title: '黑市交易',
+      title: 'Black Market',
       desc: '快来和我换课吧',
       path: '/pages/share/sharedPost?id=' + encodeURIComponent(this.data.post.id),
       success(res) {
