@@ -50,14 +50,17 @@ Page({
       data.urlType = options.urlType
     }
     let that = this
+    wx.showLoading()
     wxw.getSharedProfile(data.userId)
       .then(res => {
         res.create_time = moment.utc(res.create_time).format('YYYY年MM月DD日 HH:mm')
         that.setData({
           student: res
         })
+        wx.hideLoading()
       })
       .catch(err => {
+        wx.hideLoading()
         wxw.showMessage('type: ' + err.type + ', msg: ' + err.message)
         // wx.redirectTo({
         //   url: '../error/error'
@@ -145,13 +148,16 @@ Page({
       content: '将打开的图片保存后，可分享于朋友圈',
       showCancel: false,
       complete() {
+        wx.showLoading()
         wxw.getSharedProfileImage(that.data.userId)
           .then(res => {
+            wx.hideLoading()
             wx.previewImage({
               urls: [res.tempFilePath]
             })
           })
           .catch(err => {
+            wx.hideLoading()
             console.log(err.message)
           })
       }
