@@ -207,7 +207,7 @@ Page({
     if (!this.data.hasViewedContract) {
       wx.showModal({
         title: '查看联系方式',
-        content: '你还有' + this.data.viewCount + '次查看机会，确定要查看"' + this.data.post.student.username + '"的联系方式么？',
+        content: '今天还有' + this.data.viewCount + '次查看机会，确定要查看"' + this.data.post.student.username + '"的联系方式么？',
         confirmText: '确定',
         cancelText: '取消',
         success(res) {
