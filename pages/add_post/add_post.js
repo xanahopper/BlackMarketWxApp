@@ -245,7 +245,8 @@ Page({
         })
         .catch(err => {
           if (err.type && err.type === ErrorTypes.Response) {
-            wxw.showMessage(err.data.data.errmsg, '错误')
+            console.log(err)
+            wxw.showMessage(err.message, '错误')
           }
         })
     }
