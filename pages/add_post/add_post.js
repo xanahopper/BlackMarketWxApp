@@ -66,7 +66,7 @@ Page({
           res = res.data
           let data = {
             edit: true,
-            post_id: res.id
+            post_id: res.post.id
           }
           if (res.post.demand.course) data.demandIndex = res.post.demand.course.id
           if (res.post.supply.course) data.supplyIndex = res.post.supply.course.id
@@ -209,7 +209,8 @@ Page({
               })
               .catch(err => {
                 if (err.type && err.type === ErrorTypes.Response) {
-                  wxw.showMessage(err.data.data.errmsg, '错误')
+                  console.log(err)
+                  wxw.showMessage(err.message, '错误')
                 }
               })
           }
