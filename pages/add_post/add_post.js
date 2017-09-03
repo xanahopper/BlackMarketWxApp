@@ -68,8 +68,8 @@ Page({
             edit: true,
             post_id: res.id
           }
-          if (res.post.demand.course_id !== 0) data.demandIndex = res.post.demand.course_id
-          if (res.post.supply.course_id !== 0) data.supplyIndex = res.post.supply.course_id
+          if (res.post.demand.course) data.demandIndex = res.post.demand.course.id
+          if (res.post.supply.course) data.supplyIndex = res.post.supply.course.id
           data.useMobile = (res.post.switch === 1)
           data.wechatNo = res.post.wechat
           data.message = res.post.message
