@@ -55,7 +55,7 @@ let wxw = {
         content: msg,
         showCancel: false
       }
-      if (title) data.title = title
+      if (title) options.title = title
       wx.showModal(options)
     }
   },
