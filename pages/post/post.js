@@ -90,7 +90,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
@@ -108,14 +108,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
@@ -129,7 +129,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
@@ -180,7 +180,7 @@ Page({
           }
         })
       } else {
-        wxw.showMessage('此人电话已隐藏')
+        wxw.showMessage('该用户电话已隐藏')
       }
     } else {
       this.viewContract()
