@@ -29,7 +29,7 @@ Page({
   refreshPost(id) {
     let that = this
     // wx.showNavigationBarLoading()
-    wx.showLoading()
+    wxw.showLoading()
     wxw.getSharedPost(id)
       .then(res => {
         app.processData([res.data.post], null, true)
@@ -44,14 +44,14 @@ Page({
           inited: true
         })
         // wx.hideNavigationBarLoading()
-        wx.hideLoading()
+        wxw.hideLoading()
       })
       .catch(err => {
         this.setData({
           err: 2
         })
         // wx.hideNavigationBarLoading()
-        wx.hideLoading()
+        wxw.hideLoading()
       })
   },
 
@@ -133,11 +133,11 @@ Page({
   },
 
   viewOrigin(e) {
-    wx.showLoading()
+    wxw.showLoading()
     let url = '/pages/post/post?id=' + this.data.post.id
     app.checkLogin(url)
       .then(res => {
-        wx.hideLoading()
+        wxw.hideLoading()
         if (res && res.userInfo && res.bindInfo) {
           wx.redirectTo({
             url: url
@@ -145,7 +145,7 @@ Page({
         }
       })
       .catch(err => {
-        wx.hideLoading()
+        wxw.hideLoading()
         wx.navigateTo({
           url: '../error/error'
         })
@@ -153,10 +153,10 @@ Page({
   },
 
   viewHome(e) {
-    wx.showLoading()
+    wxw.showLoading()
     app.checkLogin()
       .then(res => {
-        wx.hideLoading()
+        wxw.hideLoading()
         if (res && res.userInfo && res.bindInfo) {
           wx.switchTab({
             url: '../index/index'
@@ -164,7 +164,7 @@ Page({
         }
       })
       .catch(err => {
-        wx.hideLoading()
+        wxw.hideLoading()
         wx.navigateTo({
           url: '../error/error'
         })

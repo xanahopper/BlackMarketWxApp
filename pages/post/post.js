@@ -30,7 +30,7 @@ Page({
   refreshPost(id) {
     let that = this
     // wx.showNavigationBarLoading()
-    wx.showLoading()
+    wxw.showLoading()
     wxw.getPost(app.globalData.session, id)
       .then(res => {
         app.processData([res.data.post], null, true)
@@ -39,14 +39,14 @@ Page({
           hasViewedContract: res.data.has_viewed_contact || res.data.post.student.id === app.globalData.bindInfo.id,
         })
         // wx.hideNavigationBarLoading()
-        wx.hideLoading()
+        wxw.hideLoading()
       })
       .catch(err => {
         this.setData({
           err: 2
         })
         // wx.hideNavigationBarLoading()
-        wx.hideLoading()
+        wxw.hideLoading()
       })
   },
 
@@ -249,20 +249,20 @@ Page({
       content: '将打开的图片保存后，可进行分享',
       showCancel: false,
       complete() {
-        wx.showLoading()
+        wxw.showLoading()
         wxw.getSharedPostImage(that.data.post, that.data.bindInfo.id)
           .then(res => {
-            wx.hideLoading()
+            wxw.hideLoading()
             wx.previewImage({
               urls: [res.tempFilePath]
             })
           })
           .catch(err => {
-            wx.hideLoading()
+            wxw.hideLoading()
             console.log(err.message)
           })
         setTimeout(() => {
-          wx.hideLoading()
+          wxw.hideLoading()
         }, 10000)
       }
     })

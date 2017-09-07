@@ -405,6 +405,18 @@ let wxw = {
       student_id
     }
     return this.request(this.urls.shareProfileNoticeUrl, data, {}, 'json', 'POST')
+  },
+
+  showLoading(options) {
+    if (wx.showLoading) {
+      wx.showLoading(options)
+    }
+  },
+
+  hideLoading() {
+    if (wx.hideLoading) {
+      wx.hideLoading()
+    }
   }
 }
 

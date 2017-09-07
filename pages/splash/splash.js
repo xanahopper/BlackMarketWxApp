@@ -1,4 +1,5 @@
 let app = getApp()
+import wxw from '../../utils/wrapper'
 Page({
   data: {
 
@@ -6,14 +7,14 @@ Page({
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     let that = this
-    wx.showLoading({
+    wxw.showLoading({
       title: '加载中',
       mask: true
     })
     app.checkLogin()
       .then(data => {
         console.log("data: ", data)
-        wx.hideLoading()
+        wxw.hideLoading()
         if (data && data.session && data.userInfo && data.bindInfo) {
           wx.switchTab({
             url: '../index/index'
