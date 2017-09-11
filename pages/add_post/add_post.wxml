@@ -75,7 +75,8 @@
                     <view class="weui-label">手机</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <text class="{{!useMobile ? 'secondary-style' : ''}}">{{bindInfo.mobile}}</text>
+                    <text wx:if="{{useMobile}}">{{bindInfo.mobile}}</text>
+                    <text wx:if="{{!useMobile}}" class="secondary-style">不显示手机号</text>
                 </view>
                 <view class="weui-cell__ft">
                     <switch checked="{{useMobile}}" bindchange="bindUseMobileChange"/>
