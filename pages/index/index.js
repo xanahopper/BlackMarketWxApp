@@ -74,25 +74,24 @@ Page({
       })
     }
 
-    (app.globalData.courseNames.length > 0 ? Promise.resolve({ data: app.globalData.courses}) : wxw.getCourses(app.globalData.session))
-      .then(res => {
-        let courses = [{
-          credit: 0,
-          id: 0,
-          name: '（无）',
-          schedules: [],
-          teacher: '（无）',
-        }]
-        let courseNames = ['（无）']
-        res.data.forEach(item => {
-          courses.push(item)
-          courseNames.push(item.name)
-        })
-        that.setData({
-          courses,
-          courseNames
-        })
+    if (app.globalData.courses) {
+      let emptyItem = {
+        credit: 0,
+        id: 0,
+        name: '（无）',
+        schedules: [],
+        teacher: '（无）',
+      }
+      let courses = app.globalData.courses.slice()
+      courses.unshift(emptyItem)
+      let courseNames = courses.map(item => item.name)
+      that.setData({
+        courses,
+        courseNames
       })
+    } else {
+      wxw.showMessage('未能加载课程列表，请尝试重新进入小程序')
+    }
 
   },
 
