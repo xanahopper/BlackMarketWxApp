@@ -1,5 +1,5 @@
 //app.js
-import Promise from './utils/bluebird';
+import Promise from './utils/es6-promise';
 import {
   SessionExpiredError,
   LoginError,
@@ -118,6 +118,7 @@ App({
           })
       })
       .catch(err => {
+        console.log('check session error')
         if (err.type) {
           switch (err.type) {
             case ErrorTypes.Response:       // checkServerSession时服务器返回但是出错
@@ -147,6 +148,7 @@ App({
         if (err.type && err.type === ErrorTypes.EmptyLocalBind) {
           return wxw.fetchServerStudentInfo(err.session)
         } else {
+          // TODO: UploadUserInfo error cause normally error page redirection
           return Promise.reject(err)
         }
       })
@@ -170,7 +172,7 @@ App({
             case ErrorTypes.Response:
             default:
               wx.redirectTo({
-                url: '/pages/error/error'
+                url: '/pages/error/error?type=' + err.type + '&msg=' + err.message
               })
               break
             case ErrorTypes.BindInfo:

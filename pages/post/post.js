@@ -189,7 +189,7 @@ Page({
 
   bindCopyWechat(e) {
     if (this.data.hasViewedContract) {
-      wx.setClipboardData({
+      wxw.setClipboardData({
         data: this.data.post.wechat,
         success(res) {
           wx.showToast({

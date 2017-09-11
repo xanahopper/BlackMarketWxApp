@@ -25,7 +25,8 @@ Page({
   data: {
     shared: 0,
     userId: 0,
-    student: {}
+    student: {},
+    shareEnable: true
   },
 
   /**
@@ -42,6 +43,7 @@ Page({
       //   url: '../error/error'
       // })
     }
+    data.shareEnable = wx.canIUse('button.open-type.share')
     if (options.shared) {
       data.shared = options.shared
     }

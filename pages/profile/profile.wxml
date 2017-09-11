@@ -18,13 +18,19 @@
 
         <view class="weui-btn-area">
             <button class="weui-btn" type="primary" bindtap="gotoApp"
-                    wx:if="{{shared!=0}}">进入小程序</button>
-            <button class="weui-btn" type="primary" open-type="share"
-                    wx:if="{{shared==0}}">转发给好友</button>
-            <button class="weui-btn" type="normal"  bindtap="shareMoment"
-                    wx:if="{{shared==0}}">分享图片</button>
+                    wx:if="{{shared!=0}}">进入小程序
+            </button>
+            <block wx:if="{{shareEnable}}">
+                <button class="weui-btn" type="primary" open-type="share"
+                        wx:if="{{shared==0}}">转发给好友
+                </button>
+            </block>
+            <button class="weui-btn" type="normal" bindtap="shareMoment"
+                    wx:if="{{shared==0}}">分享图片
+            </button>
             <button class="weui-btn" type="normal" bindtap="gotoNext"
-                    wx:if="{{nextUrl}}">继续</button>
+                    wx:if="{{nextUrl}}">继续
+            </button>
         </view>
     </view>
 </view>

@@ -18,21 +18,24 @@ Page({
     // 页面关闭
   },
   authorize: function () {
-    wx.openSetting({
+    let options = {
+      url: '/pages/index/index'
+    }
+    wxw.openSetting({
       success: function (res) {
         if (res.authSetting && res.authSetting['scope.userInfo']) {
-          wx.reLaunch({
-            url: '/pages/index/index'
+          wxw.reLaunch(options, () => {
+            wx.switchTab(options)
           })
         }
       },
       complete: function () {
-        wx.getSetting({
+        wxw.getSetting({
           scope: 'scope.userInfo',
           success: function (res) {
             if (res.authSetting['scope.userInfo']) {
-              wx.reLaunch({
-                url: '/pages/index/index'
+              wxw.reLaunch(options, () => {
+                wx.switchTab(options)
               })
             }
           }

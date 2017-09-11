@@ -1,4 +1,4 @@
-import Promise from 'bluebird'
+import Promise from 'es6-promise'
 import {
   SessionExpiredError,
   LoginError,
@@ -16,6 +16,7 @@ import {
 } from 'exception'
 
 let baseUrl = "https://pkublackmarket.cn"
+let uploadUrl = ""
 
 let wxw = {
   keys: {
@@ -47,6 +48,10 @@ let wxw = {
     sharedProfileUrl: baseUrl + "/api/v1/student/share/profile/",
     sharedProfileImage: baseUrl + "/api/v1/share/student/",
     shareProfileNoticeUrl: baseUrl + "/api/v1/share/student",
+
+    uploadTokenUrl: baseUrl + "/api/v1/qiniu/token",
+    uploadCallbackUrl: baseUrl + "/api/v1/qiniu/callback",
+
   },
 
   showMessage(msg, title) {
@@ -124,6 +129,44 @@ let wxw = {
     return this.setStorage(this.keys.session, session)
   },
 
+  // =============== 微信API兼容 ===========
+
+  showCompatibleWarning(opName = '此') {
+    this.showMessage('您的微信版本过低，无法进行' + opName + '操作')
+  },
+
+  setClipboardData(options) {
+    if (wx.setClipboardData) {
+      wx.setClipboardData(options)
+    } else {
+      this.showCompatibleWarning('复制')
+    }
+  },
+
+  reLaunch(options, fallback) {
+    if (wx.reLaunch) {
+      wx.reLaunch(options)
+    } else {
+      if (fallback) fallback()
+    }
+  },
+
+  openSetting(options) {
+    if (wx.openSetting) {
+      wx.openSetting(options)
+    } else {
+      this.showCompatibleWarning('设置')
+    }
+  },
+
+  getSetting(options) {
+    if (wx.getSetting) {
+      wx.getSetting(options)
+    } else {
+      this.showCompatibleWarning('读取设置')
+    }
+  },
+
   /**
    * 网络请求
    * @param {string} url - 请求地址
@@ -161,7 +204,7 @@ let wxw = {
   },
 
   download(url, data, header = {}, type = 'json') {
-    let contentType = (type == 'form') ? 'application/x-www-form-urlencoded' : 'application/json'
+    let contentType = (type === 'form') ? 'application/x-www-form-urlencoded' : 'application/json'
     header['content-type'] = contentType
 
     return new Promise((resolve, reject) => {
@@ -289,7 +332,7 @@ let wxw = {
           })
       })
       .catch(err => {
-        if (err.type && err.type == ErrorTypes.NoChange) {
+        if (err.type && err.type === ErrorTypes.NoChange) {
           return Promise.resolve(session)
         } else {
           return Promise.reject(err)
@@ -410,6 +453,8 @@ let wxw = {
   showLoading(options) {
     if (wx.showLoading) {
       wx.showLoading(options)
+    } else {
+      this.showCompatibleWarning('显示加载UI')
     }
   },
 
@@ -417,10 +462,35 @@ let wxw = {
     if (wx.hideLoading) {
       wx.hideLoading()
     }
+  },
+
+  chooseImage(max_count = 1) {
+    return new Promise((resolve, reject) => {
+      wx.chooseImage({
+        count: max_count,
+        sizeType: ['compressed'],
+        success(res) {
+          resolve(res.tempFiles ? res.tempFiles : res.tempFilePaths)
+        },
+        fail(res) {
+          reject()
+        }
+      })
+    })
+  },
+
+  getUploadToken(session, ext = 'jpg') {
+    let data = { ext }
+    return this.request(this.urls.uploadTokenUrl, data, this.getSessionHeader(session), 'json', 'POST')
+  },
+
+  uploadImage(files) {
+
+  },
+
+  uploadImageCallback(session, results) {
+
   }
 }
-
-
-console.log(new SessionError())
 
 module.exports = wxw
