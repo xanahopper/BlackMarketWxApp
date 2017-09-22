@@ -12,7 +12,9 @@
     "pages/my_list/my_list",
     "pages/license/license",
     "pages/share/sharedPost",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/exchange/exchange",
+    "pages/exchange/add_exchange"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -27,6 +29,12 @@
       {
         "pagePath": "pages/index/index",
         "text": "首页",
+        "iconPath": "images/homepage.png",
+        "selectedIconPath": "images/homepage_fill.png"
+      },
+      {
+        "pagePath": "pages/exchange/exchange",
+        "text": "二手",
         "iconPath": "images/homepage.png",
         "selectedIconPath": "images/homepage_fill.png"
       },

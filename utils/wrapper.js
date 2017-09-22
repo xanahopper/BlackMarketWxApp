@@ -203,6 +203,29 @@ let wxw = {
     })
   },
 
+  upload(url, filePath, name, header, data, taskObj = {}) {
+    if (wx.uploadFile) {
+      return new Promise((resolve, reject) => {
+        taskObj.task = wx.uploadFile({
+          url,
+          filePath,
+          name,
+          header,
+          formData: data,
+          success(res) {
+            let data = res.data
+            resolve(data)
+          },
+          fail(err) {
+            reject(new Error(err))
+          }
+        })
+      })
+    } else {
+      this.showCompatibleWarning('上传')
+    }
+  },
+
   download(url, data, header = {}, type = 'json') {
     let contentType = (type === 'form') ? 'application/x-www-form-urlencoded' : 'application/json'
     header['content-type'] = contentType
@@ -485,7 +508,20 @@ let wxw = {
   },
 
   uploadImage(files) {
-
+    if (files.length > 0) {
+      let taskObj = {}
+      let index = 0
+      let lastPromise = null
+      while (index < files.length) {
+        if (lastPromise) {
+          lastPromise = lastPromise
+            .then(res => {
+              console.log(res)
+              return wxw.upload()
+            })
+        }
+      }
+    }
   },
 
   uploadImageCallback(session, results) {

@@ -1,3 +1,6 @@
+import wxw from '../../utils/wrapper'
+import {ErrorTypes} from '../../utils/exception'
+import Promise from '../../utils/es6-promise'
 Page({
   data: {
 
