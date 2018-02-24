@@ -3,11 +3,11 @@ import Promise from './utils/es6-promise';
 import {
   SessionExpiredError,
   LoginError,
-  SessionError, 
-  UserInfoError, 
-  BindInfoError, 
-  ServerError, 
-  NetworkError, 
+  SessionError,
+  UserInfoError,
+  BindInfoError,
+  ServerError,
+  NetworkError,
   EmptyLocalBindError,
   ResponseError,
   ErrorTypes
@@ -47,12 +47,12 @@ App({
   },
 
   constants: {
-    requestUrl: "https://pkublackmarket.cn/api/v1/wechat/"
+    requestUrl: "https://pkublackmarket.cn/api/wechat/"
   },
 
   urls: {
-    code2sessionUrl: "https://pkublackmarket.cn/api/v1/wechat/jscode2session",
-    checkSessionUrl: "https://pkublackmarket.cn/api/v1/wechat/check_session",
+    code2sessionUrl: "https://pkublackmarket.cn/api/wechat/jscode2session",
+    checkSessionUrl: "https://pkublackmarket.cn/api/wechat/check_session",
   },
 
   onLaunch: function () {
@@ -63,8 +63,8 @@ App({
 
   processData(data, cb, origin = false) {
     data.forEach(item => {
-      item.create_time = moment.utc(item.create_time).format('YYYY-MM-DD HH:mm:ss')
-      item.update_time = moment.utc(item.update_time).format('YYYY-MM-DD HH:mm:ss')
+      item.createTime = moment.utc(item.createTime).format('YYYY-MM-DD HH:mm:ss')
+      item.updateTime = moment.utc(item.updateTime).format('YYYY-MM-DD HH:mm:ss')
       if (!origin && item.message.length > 15) item.message = item.message.substr(0, 15) + '...'
       if (cb) cb(item)
     })
@@ -90,11 +90,11 @@ App({
     let that = this
     return wxw.getCourses(that.globalData.session)
       .then(res => {
-        that.globalData.courses = res.data
+        that.globalData.courses = res
         that.globalData.courseNames = []
-        res.data.forEach(item => {
-          that.globalData.courseNames.push(item.name)
-          that.processSchedules(item)
+        res.forEach(item => {
+          that.globalData.courseNames.push(item.course.name)
+          that.processSchedules(item.schedules)
         })
         return Promise.resolve(that.globalData)
       })
@@ -129,7 +129,7 @@ App({
                 .then(code => wxw.loginCode2Session(code))
                 .catch(err => Promise.reject(err))  // LoginError || NetworkError || ServerError
             default:
-              return Promise.reject(err)  // 
+              return Promise.reject(err)  //
           }
         } else {
           return Promise.reject(err)
@@ -141,7 +141,7 @@ App({
       })
       .then(res => {
         that.globalData.userInfo = res.data.userInfo
-        return wxw.uploadUserInfo(res.session, res.data)
+        return wxw.uploadUserInfo(res.session, res.data.userInfo)
       })
       .then(session => wxw.getLocalStudentInfo(session))
       .catch(err => {

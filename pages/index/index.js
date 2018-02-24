@@ -21,7 +21,7 @@ Page({
     posts: [],
     start: 0,
     limit: 10,
-    order: 0,
+    order: 'desc',
     inited: false,
 
     supplyIndex: 0,
@@ -40,16 +40,17 @@ Page({
     wxw.getPostList(app.globalData.session, this.data.order, 0, this.data.limit,
       this.data.filterSupply, this.data.filterDemand, this.data.filterOnlyOpen ? 0 : 1)
       .then(res => {
-        console.log(res.data)
+        console.log(res)
         let data = {
           start: that.data.start + res.data.length,
           loading: false,
           inited: true
         }
-        data.hasMore = res.data.length >= that.data.limit;
-        app.processData(res.data)
-        data.posts = res.data
+        data.hasMore = res.length >= that.data.limit;
+        app.processData(res)
+        data.posts = res
         that.setData(data)
+
         wx.hideNavigationBarLoading()
         wx.stopPullDownRefresh()
         // wx.pageScrollTo({
@@ -113,14 +114,14 @@ Page({
       wxw.getPostList(app.globalData.session, this.data.order, this.data.start, this.data.limit,
         this.data.filterSupply, this.data.filterDemand)
         .then(res => {
-          console.log(res.data)
+          console.log(res)
           let data = {
-            start: that.data.start + res.data.length,
+            start: that.data.start + res.length,
             posts: that.data.posts,
             loading: false,
           }
-          if (res.data.length < that.data.limit) data.hasMore = false
-          app.processData(res.data, item => {
+          if (res.length < that.data.limit) data.hasMore = false
+          app.processData(res, item => {
             data.posts.push(item)
           })
           that.setData(data)
@@ -211,18 +212,18 @@ Page({
   },
   toggleTimeSort(e) {
     let state = 0
-    let order = 0
+    let order = 'desc'
     switch (this.data.sortState) {
       case 0:
       case 1:
       case 2:
       case 4:
         state = 3
-        order = 1
+        order = 'asc'
         break
       case 3:
         state = 4
-        order = 0
+        order = 'desc'
         break
     }
     this.setData({
