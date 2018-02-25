@@ -40,6 +40,7 @@
                             <picker bindchange="bindDemandChange" value="{{demandIndex}}" range="{{courseNames}}"
                                     wx:if="{{!edit}}">
                                 <view class="weui-select weui-select_in-select-after">{{courses[demandIndex].name}}</view>
+                                <view class="weui-select weui-select_in-select-after">{{demandIndex}}</view>
                             </picker>
                         </view>
                     </view>

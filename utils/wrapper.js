@@ -28,29 +28,29 @@ let wxw = {
   headerKeys: {
     session: 'X-User-Session-Key'
   },
-  
+
 
   urls: {
-    code2sessionUrl: baseUrl + "/api/v1/wechat/jscode2session",
-    checkSessionUrl: baseUrl + "/api/v1/wechat/check_session",
-    uploadUserInfoUrl: baseUrl + "/api/v1/wechat/user",
-    studentInfoUrl: baseUrl + "/api/v1/student/",
-    verifyCodeUrl: baseUrl + "/api/v1/student/register",
+    code2sessionUrl: baseUrl + "/api/wechat/jscode2session",
+    checkSessionUrl: baseUrl + "/api/wechat/check_session",
+    uploadUserInfoUrl: baseUrl + "/api/wechat/user",
+    studentInfoUrl: baseUrl + "/api/student/",
+    verifyCodeUrl: baseUrl + "/api/student/register",
 
-    courseUrl: baseUrl + "/api/v1/course/",
-    postUrl: baseUrl + "/api/v1/course/post/",
-    myPostUrl: baseUrl + "/api/v1/student/post",
-    viewContractUrl: baseUrl + "/api/v1/course/post/viewcount",
+    courseUrl: baseUrl + "/api/course/",
+    postUrl: baseUrl + "/api/course/post/",
+    myPostUrl: baseUrl + "/api/course/post/mine",
+    viewContractUrl: baseUrl + "/api/course/post/viewcount",
 
-    sharedPostUrl: baseUrl + "/api/v1/course/post/",
-    sharedPostImage: baseUrl + "/api/v1/share/post/",
-    sharePostNoticeUrl: baseUrl + "/api/v1/share/post",
-    sharedProfileUrl: baseUrl + "/api/v1/student/share/profile/",
-    sharedProfileImage: baseUrl + "/api/v1/share/student/",
-    shareProfileNoticeUrl: baseUrl + "/api/v1/share/student",
+    sharedPostUrl: baseUrl + "/api/course/post/",
+    sharedPostImage: baseUrl + "/api/share/post/",
+    sharePostNoticeUrl: baseUrl + "/api/share/post",
+    sharedProfileUrl: baseUrl + "/api/student/share/profile/",
+    sharedProfileImage: baseUrl + "/api/share/student/",
+    shareProfileNoticeUrl: baseUrl + "/api/share/student",
 
-    uploadTokenUrl: baseUrl + "/api/v1/qiniu/token",
-    uploadCallbackUrl: baseUrl + "/api/v1/qiniu/callback",
+    uploadTokenUrl: baseUrl + "/api/qiniu/token",
+    uploadCallbackUrl: baseUrl + "/api/qiniu/callback",
 
   },
 
@@ -383,7 +383,7 @@ let wxw = {
   },
 
   getVerifyCode(session, mobile) {
-    return this.request(this.urls.verifyCodeUrl, 
+    return this.request(this.urls.verifyCodeUrl,
       { mobile },
       this.getSessionHeader(session), 'json', 'POST')
   },
@@ -396,9 +396,9 @@ let wxw = {
   getCourses(session) {
     return this.request(this.urls.courseUrl, {}, this.getSessionHeader(session))
   },
-  
-  getPostList(session, order = 0, start = 0, limit = 10, supply = 0, demand = 0, closed = 1) {
-    return this.request(this.urls.postUrl, {order, start, limit, supply, demand, closed}, this.getSessionHeader(session),
+
+  getPostList(session, order = 'desc', start = 0, limit = 10, supply = 0, demand = 0, status = 1) {
+    return this.request(this.urls.postUrl, {order, start, limit, supply, demand, status}, this.getSessionHeader(session),
       'form')
   },
 
@@ -530,3 +530,4 @@ let wxw = {
 }
 
 module.exports = wxw
+
